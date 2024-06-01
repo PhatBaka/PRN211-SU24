@@ -28,18 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            btnLogin = new Button();
             SuspendLayout();
+            // 
+            // btnLogin
+            // 
+            btnLogin.Location = new Point(351, 140);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(94, 29);
+            btnLogin.TabIndex = 0;
+            btnLogin.Text = "Hello :)";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_ClickAsync;
             // 
             // frmLogin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnLogin);
             Name = "frmLogin";
             Text = "frmLogin";
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button btnLogin;
     }
 }

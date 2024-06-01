@@ -1,11 +1,7 @@
-using BusinessObjects.Models;
-using DataAccessObjects.Impls;
-using DataAccessObjects.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Repositories;
 using Repositories.Impls;
 using Repositories.Interfaces;
-using Services.Impls;
-using Services.Interfaces;
 using UI.Customers;
 
 namespace UI
@@ -26,7 +22,7 @@ namespace UI
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(serviceProvider.GetRequiredService<frmCustomers>());
+            Application.Run(serviceProvider.GetRequiredService<frmLogin>());
             // Application.Run(serviceProvider.GetRequiredService<frmCustomers>());
         }
 
@@ -34,25 +30,9 @@ namespace UI
         {
             services.AddScoped<DiamondShopSystemContext>();
 
-            services.AddScoped(typeof(IGenericDAO<>), typeof(GenericDAO<>));
-
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IDiamondGradingReportService, DiamondGradingReportService>();
-            services.AddScoped<IGemPriceListService, GemPriceListService>();
-            services.AddScoped<IMaterialPriceListService, MaterialPriceListService>();
-            services.AddScoped<IMembershipService, MembershipService>();
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<IProductCategoryService, ProductCategoryService>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IStaffService, StaffService>();
-            services.AddScoped<IWarrantyService, WarrantyService>();
-
-            // services.AddTransient<frmLogin>();
-            services.AddScoped<frmCustomers>();
+            services.AddScoped<frmLogin>();
         }
     }
 }

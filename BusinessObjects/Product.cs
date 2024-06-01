@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BusinessObjects.Models
+namespace BusinessObjects
 {
     public partial class Product
     {
@@ -22,9 +22,9 @@ namespace BusinessObjects.Models
         public decimal? DifferentCost { get; set; }
         public decimal? ProductionCost { get; set; }
         public decimal? PriceRate { get; set; }
+        public decimal? ChangeSizeUnitPrice { get; set; }
         public string? ProductSize { get; set; }
         public byte[]? Image { get; set; }
-
         public virtual ProductCategory? Category { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductMaterial> ProductMaterials { get; set; }

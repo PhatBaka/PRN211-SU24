@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessObjects;
+using Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +14,16 @@ namespace UI
 {
     public partial class frmLogin : Form
     {
-        public frmLogin()
+        private readonly IGenericRepository<Customer> _genericRepository;
+        public frmLogin(IGenericRepository<Customer> genericRepository)
         {
             InitializeComponent();
+            _genericRepository = genericRepository;
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_ClickAsync(object sender, EventArgs e)
         {
-
+            var test = await _genericRepository.GetAllAsync();
         }
     }
 }

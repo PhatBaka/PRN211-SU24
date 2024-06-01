@@ -7,11 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{196B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repository\Repositories.csproj", "{E6FECD50-B4D8-433F-9CF8-92EDC11B752D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessObjects", "DataAccessObjects\DataAccessObjects.csproj", "{D91B2660-A388-4132-B2CD-B4D4F7B02BCE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObjects", "BusinessObjects\BusinessObjects.csproj", "{5B767970-FF7B-4AA3-8EBF-5CE4F6E596CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{B9C278B6-C1DA-46D5-91B6-BB02E19FE2A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +31,6 @@ Global
 		{5B767970-FF7B-4AA3-8EBF-5CE4F6E596CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B767970-FF7B-4AA3-8EBF-5CE4F6E596CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B767970-FF7B-4AA3-8EBF-5CE4F6E596CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9C278B6-C1DA-46D5-91B6-BB02E19FE2A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9C278B6-C1DA-46D5-91B6-BB02E19FE2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9C278B6-C1DA-46D5-91B6-BB02E19FE2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9C278B6-C1DA-46D5-91B6-BB02E19FE2A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

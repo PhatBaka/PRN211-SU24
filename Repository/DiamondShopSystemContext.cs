@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using BusinessObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
-namespace BusinessObjects.Models
+namespace Repositories
 {
     public partial class DiamondShopSystemContext : DbContext
     {

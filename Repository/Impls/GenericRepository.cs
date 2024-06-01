@@ -1,31 +1,31 @@
-﻿using DataAccessObjects.Interfaces;
-using DataAccessObjects;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessObjects.Impls;
 using Repositories.Interfaces;
+using BusinessObjects;
 
 namespace Repositories.Impls
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private readonly IGenericDAO<TEntity> _genericDAO;
+        private readonly DiamondShopSystemContext _context;
+        private readonly DbSet<TEntity> _dbSet;
 
-        public GenericRepository(IGenericDAO<TEntity> genericDAO)
+        public GenericRepository(DiamondShopSystemContext context)
         {
-            _genericDAO = genericDAO;
+            _context = context;
+            _dbSet = _context.Set<TEntity>();
         }
 
         public async Task<TEntity> FindAsync(Func<TEntity, bool> predicate)
         {
             try
             {
-                return await _genericDAO.FindAsync(predicate);
+                return await Task.Run(() => _dbSet.SingleOrDefault(predicate));
             }
             catch (Exception ex)
             {
@@ -37,7 +37,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.FindAll(predicate);
+                return await Task.Run(() => _dbSet.Where(predicate).AsQueryable());
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.FindAsync(predicate);
+                return await _dbSet.SingleOrDefaultAsync(predicate);
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.GetAllAsync();
+                return await Task.Run(() => _dbSet.AsQueryable());
             }
             catch (Exception ex)
             {
@@ -73,7 +73,8 @@ namespace Repositories.Impls
         {
             try
             {
-                await _genericDAO.DeleteRangeAsync(entities);
+                _dbSet.RemoveRange(entities);
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -85,7 +86,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.GetByIdAsync(id);
+                return await _dbSet.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -97,7 +98,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.GetWhereAsync(predicate);
+                return await Task.Run(() => _dbSet.Where(predicate).AsEnumerable());
             }
             catch (Exception ex)
             {
@@ -109,7 +110,13 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.HardDeleteAsync(key);
+                var entity = await _dbSet.FindAsync(key);
+                if (entity == null)
+                {
+                    return false;
+                }
+                _dbSet.Remove(entity);
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
@@ -121,7 +128,8 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.DeleteAsync(entity);
+                _dbSet.Remove(entity);
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
@@ -133,7 +141,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.HardDeleteIdAsync(key);
+                return await HardDeleteAsync(key);
             }
             catch (Exception ex)
             {
@@ -145,7 +153,8 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.InsertAsync(entity);
+                await _dbSet.AddAsync(entity);
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
@@ -157,7 +166,8 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.InsertRangeAsync(entities);
+                await _dbSet.AddRangeAsync(entities);
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
@@ -169,7 +179,13 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.UpdateByIdAsync(entity, id);
+                var existingEntity = await _dbSet.FindAsync(id);
+                if (existingEntity == null)
+                {
+                    return false;
+                }
+                _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
@@ -181,7 +197,8 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.UpdateRangeAsync(entities);
+                _dbSet.UpdateRange(entities);
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
@@ -193,7 +210,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.AnyAsync(predicate);
+                return await Task.Run(() => _dbSet.Any(predicate));
             }
             catch (Exception ex)
             {
@@ -205,7 +222,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.CountAsync(predicate);
+                return await Task.Run(() => _dbSet.Count(predicate));
             }
             catch (Exception ex)
             {
@@ -217,7 +234,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.CountAsync();
+                return await _dbSet.CountAsync();
             }
             catch (Exception ex)
             {
@@ -229,7 +246,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.FistOrDefault(predicate);
+                return await Task.Run(() => _dbSet.FirstOrDefault(predicate));
             }
             catch (Exception ex)
             {
@@ -241,7 +258,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.FirstOrDefaultAsync(predicate);
+                return await _dbSet.FirstOrDefaultAsync(predicate);
             }
             catch (Exception ex)
             {
@@ -253,7 +270,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.SaveChagesAysnc();
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
@@ -265,7 +282,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.IsMinAsync(predicate);
+                return await Task.Run(() => _dbSet.Min(predicate));
             }
             catch (Exception ex)
             {
@@ -277,7 +294,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.IsMaxAsync(predicate);
+                return await Task.Run(() => _dbSet.Max(predicate));
             }
             catch (Exception ex)
             {
@@ -289,7 +306,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.GetMinAsync();
+                return await Task.Run(() => _dbSet.Min());
             }
             catch (Exception ex)
             {
@@ -301,7 +318,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.GetMaxAsync();
+                return await Task.Run(() => _dbSet.Max());
             }
             catch (Exception ex)
             {
@@ -313,7 +330,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.IsMaxAsync(predicate);
+                return await Task.Run(() => _dbSet.Max(predicate));
             }
             catch (Exception ex)
             {
@@ -325,7 +342,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.IsMinAsync(predicate);
+                return await Task.Run(() => _dbSet.Min(predicate));
             }
             catch (Exception ex)
             {
@@ -337,7 +354,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.GetMinAsync(predicate);
+                return await Task.Run(() => _dbSet.Where(predicate).Min());
             }
             catch (Exception ex)
             {
@@ -349,7 +366,7 @@ namespace Repositories.Impls
         {
             try
             {
-                return await _genericDAO.GetMaxAsync(predicate);
+                return await Task.Run(() => _dbSet.Where(predicate).Max());
             }
             catch (Exception ex)
             {

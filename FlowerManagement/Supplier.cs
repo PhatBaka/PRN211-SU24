@@ -64,12 +64,12 @@ namespace FlowerManagement
             int supplierID;
             if (int.TryParse(txtSupplierID.Text, out supplierID))
             {
-                // Retrieve the Supplier data by ID
+                
                 currentSupplier = supplierDAO.GetById(supplierID);
 
                 if (currentSupplier != null)
                 {
-                    // Populate the form controls with the data
+                    
                     txtSupplierName.Text = currentSupplier.SupplierName;
                     txtSupplierAddress.Text = currentSupplier.SupplierAddress;
                     txtTelephone.Text = currentSupplier.Telephone;
@@ -89,12 +89,12 @@ namespace FlowerManagement
         {
             if (currentSupplier != null)
             {
-                // Update the Supplier data from the form controls
+                
                 currentSupplier.SupplierName = txtSupplierName.Text;
                 currentSupplier.SupplierAddress = txtSupplierAddress.Text;
                 currentSupplier.Telephone = txtTelephone.Text;
 
-                // Save the updated Supplier data
+                
                 if (currentSupplier.SupplierID == 0)
                 {
                     supplierDAO.Add(currentSupplier);

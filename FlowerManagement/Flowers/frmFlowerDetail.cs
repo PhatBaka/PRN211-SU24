@@ -48,14 +48,16 @@ namespace FlowerManagement.Flowers
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Flower flower = new Flower();
-            flower.FlowerBouquetName = txtFlowerBouquetName.Text;
-            flower.Description = txtDescription.Text;
-            flower.UnitPrice = decimal.Parse(txtUnitPrice.Text);
-            flower.UnitsInStock = int.Parse(txtUnitsInStock.Text);
-            flower.Morphology = txtMorphology.Text;
-            flower.SupplierID = Int32.Parse(cbSupplier.SelectedValue.ToString());
-            flower.CategoryID = Int32.Parse(cbCategory.SelectedValue.ToString());
+            Flower flower = new Flower()
+            {
+                FlowerBouquetName = txtFlowerBouquetName.Text,
+                Description = txtDescription.Text,
+                UnitPrice = decimal.Parse(txtUnitPrice.Text),
+                UnitsInStock = int.Parse(txtUnitPrice.Text),
+                Morphology = txtMorphology.Text,
+                SupplierID = Int32.Parse(cbSupplier.SelectedValue.ToString()),
+                CategoryID = Int32.Parse(cbCategory.SelectedValue.ToString())
+            };
 
             if (imgFlower.Image != null)
             {

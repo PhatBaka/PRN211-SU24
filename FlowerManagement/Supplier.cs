@@ -8,17 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessObjects;
-using DataAccessObjects;
+using DataAccessObjects.Impls;
 
 namespace FlowerManagement
 {
     public partial class Supplier : Form
     {
         private BusinessObjects.Supplier currentSupplier;
+        private BaseDAO<BusinessObjects.Supplier> supplierDAO;
 
         public Supplier()
         {
             InitializeComponent();
+            supplierDAO = BaseDAO<BusinessObjects.Supplier>.Instance;
         }
 
         private void txtSupplierID_TextChanged(object sender, EventArgs e)
@@ -62,12 +64,12 @@ namespace FlowerManagement
             int supplierID;
             if (int.TryParse(txtSupplierID.Text, out supplierID))
             {
-
-                currentSupplier = SupplierDataAccess.GetSupplierByID(supplierID);
+                // Retrieve the Supplier data by ID
+                currentSupplier = supplierDAO.GetById(supplierID);
 
                 if (currentSupplier != null)
                 {
-
+                    // Populate the form controls with the data
                     txtSupplierName.Text = currentSupplier.SupplierName;
                     txtSupplierAddress.Text = currentSupplier.SupplierAddress;
                     txtTelephone.Text = currentSupplier.Telephone;
@@ -87,18 +89,27 @@ namespace FlowerManagement
         {
             if (currentSupplier != null)
             {
+                // Update the Supplier data from the form controls
                 currentSupplier.SupplierName = txtSupplierName.Text;
                 currentSupplier.SupplierAddress = txtSupplierAddress.Text;
                 currentSupplier.Telephone = txtTelephone.Text;
 
-                SupplierDataAccess.SaveSupplier(currentSupplier);
+                // Save the updated Supplier data
+                if (currentSupplier.SupplierID == 0)
+                {
+                    supplierDAO.Add(currentSupplier);
+                }
+                else
+                {
+                    supplierDAO.Update(currentSupplier);
+                }
+
                 MessageBox.Show("Supplier data saved successfully.");
             }
             else
             {
                 MessageBox.Show("No Supplier data to save.");
             }
-
         }
     }
 }

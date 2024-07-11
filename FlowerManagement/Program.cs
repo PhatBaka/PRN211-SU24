@@ -1,3 +1,5 @@
+using FlowerManagement.Flowers;
+
 namespace FlowerManagement
 {
     internal static class Program
@@ -11,7 +13,7 @@ namespace FlowerManagement
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmFlower());
+            Application.Run(new frmFlowerDetail());
         }
     }
 }

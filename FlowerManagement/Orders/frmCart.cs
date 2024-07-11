@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FlowerManagement.Orders
 {
-    public partial class Cart : Form
+    public partial class frmCart : Form
     {
-        public Cart()
+        public frmCart()
         {
             InitializeComponent();
         }

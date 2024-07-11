@@ -1,6 +1,6 @@
 ﻿namespace FlowerManagement.Orders
 {
-    partial class Order
+    partial class frmOrder
     {
         /// <summary>
         /// Required designer variable.
@@ -61,8 +61,9 @@
             dgvFlowerList.RowTemplate.Height = 29;
             dgvFlowerList.Size = new Size(690, 423);
             dgvFlowerList.TabIndex = 0;
+            dgvFlowerList.SelectionChanged += dgvFlowerList_SelectionChanged;
             // 
-            // Order
+            // frmOrder
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -70,8 +71,9 @@
             Controls.Add(btnAddToCart);
             Controls.Add(btnViewCart);
             Controls.Add(dgvFlowerList);
-            Name = "Order";
+            Name = "frmOrder";
             Text = "Order";
+            Load += Order_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFlowerList).EndInit();
             ResumeLayout(false);
         }

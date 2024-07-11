@@ -1,5 +1,6 @@
 using FlowerManagement.Categories;
 using FlowerManagement.Flowers;
+using FlowerManagement.Orders;
 using FlowerManagement.Suppliers;
 
 namespace FlowerManagement
@@ -15,7 +16,7 @@ namespace FlowerManagement
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmFlower());
+            Application.Run(new frmOrder());
         }
     }
 }

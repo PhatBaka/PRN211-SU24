@@ -21,6 +21,12 @@ namespace FlowerManagement
         {
             InitializeComponent();
             supplierDAO = BaseDAO<BusinessObjects.Supplier>.Instance;
+
+            // Wire up the Load event
+            this.Load += Supplier_Load;
+
+            // Add event handler for DataGridView selection change
+            dataGridViewSuppliers.SelectionChanged += dataGridViewSuppliers_SelectionChanged;
         }
 
         private void txtSupplierID_TextChanged(object sender, EventArgs e)
@@ -58,39 +64,21 @@ namespace FlowerManagement
                 currentSupplier.Telephone = txtTelephone.Text;
             }
         }
-
-        private void btnLoadSupplier_Click(object sender, EventArgs e)
+        private void btnLoadAllSuppliers_Click_1(object sender, EventArgs e)
         {
-            int supplierID;
-            if (int.TryParse(txtSupplierID.Text, out supplierID))
-            {
-                currentSupplier = supplierDAO.GetById(supplierID);
-
-                if (currentSupplier != null)
-                {
-                    txtSupplierName.Text = currentSupplier.SupplierName;
-                    txtSupplierAddress.Text = currentSupplier.SupplierAddress;
-                    txtTelephone.Text = currentSupplier.Telephone;
-                }
-                else
-                {
-                    MessageBox.Show("Supplier not found.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid Supplier ID.");
-            }
+            LoadAllSuppliers();
         }
 
         private void btnSaveSupplier_Click(object sender, EventArgs e)
         {
             if (currentSupplier != null)
             {
+                // Update the Supplier data from the form controls
                 currentSupplier.SupplierName = txtSupplierName.Text;
                 currentSupplier.SupplierAddress = txtSupplierAddress.Text;
                 currentSupplier.Telephone = txtTelephone.Text;
 
+                // Save the updated Supplier data
                 if (currentSupplier.SupplierID == 0)
                 {
                     supplierDAO.Add(currentSupplier);
@@ -101,12 +89,65 @@ namespace FlowerManagement
                 }
 
                 MessageBox.Show("Supplier data saved successfully.");
+                LoadAllSuppliers();
             }
             else
             {
                 MessageBox.Show("No Supplier data to save.");
             }
         }
+        private void btnDeleteSupplier_Click_1(object sender, EventArgs e)
+        {
+            if (currentSupplier != null && currentSupplier.SupplierID != 0)
+            {
+                if (supplierDAO.Delete(currentSupplier))
+                {
+                    MessageBox.Show("Supplier deleted successfully.");
+                    ClearForm();
+                    LoadAllSuppliers();
+                }
+                else
+                {
+                    MessageBox.Show("Error deleting supplier.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Supplier data to delete.");
+            }
 
+        }
+
+        private void ClearForm()
+        {
+            txtSupplierID.Text = "";
+            txtSupplierName.Text = "";
+            txtSupplierAddress.Text = "";
+            txtTelephone.Text = "";
+            currentSupplier = null;
+        }
+
+        private void LoadAllSuppliers()
+        {
+            var suppliers = supplierDAO.GetAll().ToList();
+            dataGridViewSuppliers.DataSource = suppliers;
+        }
+
+        private void dataGridViewSuppliers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridViewSuppliers.SelectedRows.Count > 0)
+            {
+                int supplierID = Convert.ToInt32(dataGridViewSuppliers.SelectedRows[0].Cells["SupplierID"].Value);
+                currentSupplier = supplierDAO.GetById(supplierID);
+
+                if (currentSupplier != null)
+                {
+                    txtSupplierID.Text = currentSupplier.SupplierID.ToString();
+                    txtSupplierName.Text = currentSupplier.SupplierName;
+                    txtSupplierAddress.Text = currentSupplier.SupplierAddress;
+                    txtTelephone.Text = currentSupplier.Telephone;
+                }
+            }
+        }
     }
 }

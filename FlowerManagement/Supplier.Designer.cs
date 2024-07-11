@@ -32,15 +32,18 @@
             txtSupplierName = new TextBox();
             txtSupplierAddress = new TextBox();
             txtTelephone = new TextBox();
-            btnLoadSupplier = new Button();
             btnSaveSupplier = new Button();
+            dataGridViewSuppliers = new DataGridView();
+            btnLoadAllSuppliers = new Button();
+            btnDeleteSupplier = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewSuppliers).BeginInit();
             SuspendLayout();
             // 
             // txtSupplierID
             // 
             txtSupplierID.Location = new Point(273, 122);
             txtSupplierID.Name = "txtSupplierID";
-            txtSupplierID.Size = new Size(217, 27);
+            txtSupplierID.Size = new Size(233, 27);
             txtSupplierID.TabIndex = 0;
             txtSupplierID.TextChanged += txtSupplierID_TextChanged;
             // 
@@ -48,15 +51,15 @@
             // 
             txtSupplierName.Location = new Point(273, 155);
             txtSupplierName.Name = "txtSupplierName";
-            txtSupplierName.Size = new Size(217, 27);
+            txtSupplierName.Size = new Size(233, 27);
             txtSupplierName.TabIndex = 1;
             txtSupplierName.TextChanged += txtSupplierName_TextChanged;
             // 
             // txtSupplierAddress
             // 
-            txtSupplierAddress.Location = new Point(273, 188);
+            txtSupplierAddress.Location = new Point(267, 188);
             txtSupplierAddress.Name = "txtSupplierAddress";
-            txtSupplierAddress.Size = new Size(217, 27);
+            txtSupplierAddress.Size = new Size(239, 27);
             txtSupplierAddress.TabIndex = 2;
             txtSupplierAddress.TextChanged += txtSupplierAddress_TextChanged;
             // 
@@ -64,23 +67,13 @@
             // 
             txtTelephone.Location = new Point(273, 221);
             txtTelephone.Name = "txtTelephone";
-            txtTelephone.Size = new Size(217, 27);
+            txtTelephone.Size = new Size(233, 27);
             txtTelephone.TabIndex = 3;
             txtTelephone.TextChanged += txtTelephone_TextChanged;
             // 
-            // btnLoadSupplier
-            // 
-            btnLoadSupplier.Location = new Point(254, 254);
-            btnLoadSupplier.Name = "btnLoadSupplier";
-            btnLoadSupplier.Size = new Size(127, 29);
-            btnLoadSupplier.TabIndex = 4;
-            btnLoadSupplier.Text = "Load Supplier";
-            btnLoadSupplier.UseVisualStyleBackColor = true;
-            btnLoadSupplier.Click += btnLoadSupplier_Click;
-            // 
             // btnSaveSupplier
             // 
-            btnSaveSupplier.Location = new Point(400, 254);
+            btnSaveSupplier.Location = new Point(377, 252);
             btnSaveSupplier.Name = "btnSaveSupplier";
             btnSaveSupplier.Size = new Size(129, 29);
             btnSaveSupplier.TabIndex = 5;
@@ -88,19 +81,53 @@
             btnSaveSupplier.UseVisualStyleBackColor = true;
             btnSaveSupplier.Click += btnSaveSupplier_Click;
             // 
+            // dataGridViewSuppliers
+            // 
+            dataGridViewSuppliers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewSuppliers.Location = new Point(11, 107);
+            dataGridViewSuppliers.Name = "dataGridViewSuppliers";
+            dataGridViewSuppliers.RowHeadersWidth = 51;
+            dataGridViewSuppliers.RowTemplate.Height = 29;
+            dataGridViewSuppliers.Size = new Size(250, 139);
+            dataGridViewSuppliers.TabIndex = 6;
+            dataGridViewSuppliers.CellContentClick += dataGridViewSuppliers_CellContentClick;
+            // 
+            // btnLoadAllSuppliers
+            // 
+            btnLoadAllSuppliers.Location = new Point(53, 252);
+            btnLoadAllSuppliers.Name = "btnLoadAllSuppliers";
+            btnLoadAllSuppliers.Size = new Size(149, 29);
+            btnLoadAllSuppliers.TabIndex = 7;
+            btnLoadAllSuppliers.Text = "Load All Suppliers";
+            btnLoadAllSuppliers.UseVisualStyleBackColor = true;
+            btnLoadAllSuppliers.Click += btnLoadAllSuppliers_Click_1;
+            // 
+            // btnDeleteSupplier
+            // 
+            btnDeleteSupplier.Location = new Point(222, 252);
+            btnDeleteSupplier.Name = "btnDeleteSupplier";
+            btnDeleteSupplier.Size = new Size(140, 29);
+            btnDeleteSupplier.TabIndex = 8;
+            btnDeleteSupplier.Text = "Delete Supplier";
+            btnDeleteSupplier.UseVisualStyleBackColor = true;
+            btnDeleteSupplier.Click += btnDeleteSupplier_Click_1;
+            // 
             // Supplier
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDeleteSupplier);
+            Controls.Add(btnLoadAllSuppliers);
+            Controls.Add(dataGridViewSuppliers);
             Controls.Add(btnSaveSupplier);
-            Controls.Add(btnLoadSupplier);
             Controls.Add(txtTelephone);
             Controls.Add(txtSupplierAddress);
             Controls.Add(txtSupplierName);
             Controls.Add(txtSupplierID);
             Name = "Supplier";
             Text = "Supplier";
+            ((System.ComponentModel.ISupportInitialize)dataGridViewSuppliers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -111,7 +138,9 @@
         private TextBox txtSupplierName;
         private TextBox txtSupplierAddress;
         private TextBox txtTelephone;
-        private Button btnLoadSupplier;
         private Button btnSaveSupplier;
+        private DataGridView dataGridViewSuppliers;
+        private Button btnLoadAllSuppliers;
+        private Button btnDeleteSupplier;
     }
 }

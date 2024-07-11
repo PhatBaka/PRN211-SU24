@@ -1,6 +1,6 @@
 ﻿namespace FlowerManagement
 {
-    partial class FlowerBouquetID
+    partial class frmFlower
     {
         /// <summary>
         /// Required designer variable.
@@ -145,7 +145,7 @@
             btnsave.TabIndex = 11;
             btnsave.Text = "Save";
             btnsave.UseVisualStyleBackColor = true;
-            btnsave.Click += btnsave_Click;
+            btnsave.Click += btnSave_Click;
             // 
             // FlowerBouquetID
             // 

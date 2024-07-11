@@ -10,23 +10,26 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessObjects;
 using DataAccessObjects;
+using Repositories.Impls;
+using Repositories.Interfaces;
 
 namespace FlowerManagement
 {
-    public partial class FlowerBouquetID : Form
+    public partial class frmFlower : Form
     {
-        private Flower currentFlower;
+        private Flower? Flower;
+        private readonly IFlowerRepository _flowerRepository = new FlowerRepository();
 
-        public FlowerBouquetID()
+        public frmFlower()
         {
             InitializeComponent();
         }
 
         private void chkFlowerBouquetStatus_CheckedChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
-                currentFlower.FlowerBouquetStatus = chkFlowerBouquetStatus.Checked;
+                Flower.FlowerBouquetStatus = chkFlowerBouquetStatus.Checked;
             }
         }
 
@@ -38,7 +41,7 @@ namespace FlowerManagement
             {
                 string imagePath = openFileDialog.FileName;
                 picImage.Image = Image.FromFile(imagePath);
-                currentFlower.Image = File.ReadAllBytes(imagePath);
+                Flower.Image = File.ReadAllBytes(imagePath);
             }
         }
 
@@ -48,22 +51,22 @@ namespace FlowerManagement
             if (int.TryParse(txtFlowerBouquetID.Text, out flowerBouquetID))
             {
 
-                currentFlower = FlowerDataAccess.GetFlowerByID(flowerBouquetID);
+                Flower = _flowerRepository.GetById(flowerBouquetID);
 
-                if (currentFlower != null)
+                if (Flower != null)
                 {
-                    txtFlowerBouquetName.Text = currentFlower.FlowerBouquetName;
-                    txtDescription.Text = currentFlower.Description;
-                    txtUnitPrice.Text = currentFlower.UnitPrice.ToString();
-                    txtUnitsInStock.Text = currentFlower.UnitsInStock.ToString();
-                    chkFlowerBouquetStatus.Checked = currentFlower.FlowerBouquetStatus;
-                    txtMorphology.Text = currentFlower.Morphology;
-                    txtCategoryID.Text = currentFlower.CategoryID.ToString();
-                    txtSupplierID.Text = currentFlower.SupplierID.ToString();
+                    txtFlowerBouquetName.Text = Flower.FlowerBouquetName;
+                    txtDescription.Text = Flower.Description;
+                    txtUnitPrice.Text = Flower.UnitPrice.ToString();
+                    txtUnitsInStock.Text = Flower.UnitsInStock.ToString();
+                    chkFlowerBouquetStatus.Checked = Flower.FlowerBouquetStatus;
+                    txtMorphology.Text = Flower.Morphology;
+                    txtCategoryID.Text = Flower.CategoryID.ToString();
+                    txtSupplierID.Text = Flower.SupplierID.ToString();
 
-                    if (currentFlower.Image != null)
+                    if (Flower.Image != null)
                     {
-                        using (MemoryStream ms = new MemoryStream(currentFlower.Image))
+                        using (MemoryStream ms = new MemoryStream(Flower.Image))
                         {
                             picImage.Image = Image.FromStream(ms);
                         }
@@ -80,114 +83,111 @@ namespace FlowerManagement
             }
         }
 
-        private void btnsave_Click(object sender, EventArgs e)
-        {
-            if (currentFlower != null)
-            {
-
-                currentFlower.FlowerBouquetName = txtFlowerBouquetName.Text;
-                currentFlower.Description = txtDescription.Text;
-                currentFlower.UnitPrice = decimal.Parse(txtUnitPrice.Text);
-                currentFlower.UnitsInStock = int.Parse(txtUnitsInStock.Text);
-                currentFlower.FlowerBouquetStatus = chkFlowerBouquetStatus.Checked;
-                currentFlower.Morphology = txtMorphology.Text;
-                currentFlower.CategoryID = int.Parse(txtCategoryID.Text);
-                currentFlower.SupplierID = int.Parse(txtSupplierID.Text);
-
-                FlowerDataAccess.SaveFlower(currentFlower);
-                MessageBox.Show("Flower data saved successfully.");
-            }
-            else
-            {
-                MessageBox.Show("No Flower data to save.");
-            }
-
-        }
-
         private void txtFlowerBouquetID_TextChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
                 int flowerBouquetID;
                 if (int.TryParse(txtFlowerBouquetID.Text, out flowerBouquetID))
                 {
-                    currentFlower.FlowerBouquetID = flowerBouquetID;
+                    Flower.FlowerBouquetID = flowerBouquetID;
                 }
             }
         }
 
         private void txtFlowerBouquetName_TextChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
-                currentFlower.FlowerBouquetName = txtFlowerBouquetName.Text;
+                Flower.FlowerBouquetName = txtFlowerBouquetName.Text;
             }
         }
 
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
-                currentFlower.Description = txtDescription.Text;
+                Flower.Description = txtDescription.Text;
             }
         }
 
         private void txtUnitPrice_TextChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
                 decimal unitPrice;
                 if (decimal.TryParse(txtUnitPrice.Text, out unitPrice))
                 {
-                    currentFlower.UnitPrice = unitPrice;
+                    Flower.UnitPrice = unitPrice;
                 }
             }
         }
 
         private void txtUnitsInStock_TextChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
                 int unitsInStock;
                 if (int.TryParse(txtUnitsInStock.Text, out unitsInStock))
                 {
-                    currentFlower.UnitsInStock = unitsInStock;
+                    Flower.UnitsInStock = unitsInStock;
                 }
             }
         }
 
         private void txtMorphology_TextChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
-                currentFlower.Morphology = txtMorphology.Text;
+                Flower.Morphology = txtMorphology.Text;
             }
         }
 
         private void txtCategoryID_TextChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
                 int categoryID;
                 if (int.TryParse(txtCategoryID.Text, out categoryID))
                 {
-                    currentFlower.CategoryID = categoryID;
+                    Flower.CategoryID = categoryID;
                 }
             }
         }
 
         private void txtSupplierID_TextChanged(object sender, EventArgs e)
         {
-            if (currentFlower != null)
+            if (Flower != null)
             {
                 int supplierID;
                 if (int.TryParse(txtSupplierID.Text, out supplierID))
                 {
-                    currentFlower.SupplierID = supplierID;
+                    Flower.SupplierID = supplierID;
                 }
             }
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (Flower != null)
+            {
 
+                Flower.FlowerBouquetName = txtFlowerBouquetName.Text;
+                Flower.Description = txtDescription.Text;
+                Flower.UnitPrice = decimal.Parse(txtUnitPrice.Text);
+                Flower.UnitsInStock = int.Parse(txtUnitsInStock.Text);
+                Flower.FlowerBouquetStatus = chkFlowerBouquetStatus.Checked;
+                Flower.Morphology = txtMorphology.Text;
+                Flower.CategoryID = int.Parse(txtCategoryID.Text);
+                Flower.SupplierID = int.Parse(txtSupplierID.Text);
+
+                _flowerRepository.Add(Flower);
+                MessageBox.Show("Flower data saved successfully.");
+            }
+            else
+            {
+                MessageBox.Show("No Flower data to save.");
+            }
+        }
     }
 }

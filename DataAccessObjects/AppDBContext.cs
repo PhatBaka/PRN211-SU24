@@ -36,7 +36,7 @@ namespace DataAccessObjects
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .Build();
-
+                optionsBuilder.UseLazyLoadingProxies();
                 var connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(connectionString);
             }

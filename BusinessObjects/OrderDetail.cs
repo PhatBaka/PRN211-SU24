@@ -1,20 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-    public partial class OrderDetail
+    [Table("OrderDetail")]
+    public class OrderDetail
     {
-        public int OrderDetailId { get; set; }
-        public int? OrderId { get; set; }
-        public int? ProductId { get; set; }
-        public string? CustomizedSize { get; set; }
-        public decimal? CustomizedAmount { get; set; }
-        public decimal? TotalPrice { get; set; }
-        public decimal? FinalPrice { get; set; }
+        [Key]
+        [Required]
+        public int OrderID { get; set; }
+
+        [Key]
+        [Required]
+        public int FlowerBouquetID { get; set; }
+
+        [Required]
+        [Column(TypeName = "money")]
+        public decimal UnitPrice { get; set; }
+
+        public int Quantity { get; set; }
+
+        [Column(TypeName = "float")]
+        public float Discount { get; set; }
 
         public virtual Order? Order { get; set; }
-        public virtual Product? Product { get; set; }
-        public virtual Warranty? Warranty { get; set; }
+
+        public virtual Flower? Flower { get; set; }
     }
 }

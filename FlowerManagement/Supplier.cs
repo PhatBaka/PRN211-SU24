@@ -64,12 +64,10 @@ namespace FlowerManagement
             int supplierID;
             if (int.TryParse(txtSupplierID.Text, out supplierID))
             {
-                
                 currentSupplier = supplierDAO.GetById(supplierID);
 
                 if (currentSupplier != null)
                 {
-                    
                     txtSupplierName.Text = currentSupplier.SupplierName;
                     txtSupplierAddress.Text = currentSupplier.SupplierAddress;
                     txtTelephone.Text = currentSupplier.Telephone;
@@ -89,12 +87,10 @@ namespace FlowerManagement
         {
             if (currentSupplier != null)
             {
-                
                 currentSupplier.SupplierName = txtSupplierName.Text;
                 currentSupplier.SupplierAddress = txtSupplierAddress.Text;
                 currentSupplier.Telephone = txtTelephone.Text;
 
-                
                 if (currentSupplier.SupplierID == 0)
                 {
                     supplierDAO.Add(currentSupplier);
@@ -111,5 +107,6 @@ namespace FlowerManagement
                 MessageBox.Show("No Supplier data to save.");
             }
         }
+
     }
 }

@@ -2,6 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Repositories;
 using Repositories.Impls;
 using Repositories.Interfaces;
+using Services.Impls;
+using Services.Interfaces;
 using UI.Customers;
 
 namespace UI
@@ -31,6 +33,8 @@ namespace UI
             services.AddScoped<DiamondShopSystemContext>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddScoped<IAccountService, AccountService>();
 
             services.AddScoped<frmLogin>();
         }

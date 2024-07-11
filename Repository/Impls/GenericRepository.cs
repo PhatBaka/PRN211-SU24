@@ -21,6 +21,25 @@ namespace Repositories.Impls
             _dbSet = _context.Set<TEntity>();
         }
 
+        private static GenericRepository<TEntity> instance = null;
+        private static readonly object InstanceLock = new object();
+
+        public static GenericRepository<TEntity> Instance
+        {
+            get
+            {
+                lock (InstanceLock)
+                {
+                    if (instance == null)
+                    {
+                        DiamondShopSystemContext context = new DiamondShopSystemContext();
+                        instance = new GenericRepository<TEntity>(context);
+                    }
+                    return instance;
+                }
+            }
+        }
+
         public async Task<TEntity> FindAsync(Func<TEntity, bool> predicate)
         {
             try
@@ -175,17 +194,17 @@ namespace Repositories.Impls
             }
         }
 
-        public async Task<bool> UpdateByIdAsync(TEntity entity, object id)
+        public async Task UpdateByIdAsync(TEntity entity, object id)
         {
             try
             {
                 var existingEntity = await _dbSet.FindAsync(id);
                 if (existingEntity == null)
                 {
-                    return false;
+                    return;
                 }
                 _context.Entry(existingEntity).CurrentValues.SetValues(entity);
-                return await _context.SaveChangesAsync() > 0;
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {

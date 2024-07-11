@@ -21,7 +21,7 @@ namespace Repositories.Interfaces
         public Task<bool> HardDeleteIdAsync(object key);
         public Task<bool> InsertAsync(TEntity entity);
         public Task<bool> InsertRangeAsync(IQueryable<TEntity> entities);
-        public Task<bool> UpdateByIdAsync(TEntity entity, object id);
+        public Task UpdateByIdAsync(TEntity entity, object id);
         public Task<bool> UpdateRangeAsync(IQueryable<TEntity> entities);
         public Task<bool> AnyAsync(Func<TEntity, bool> predicate);
         public Task<int> CountAsync(Func<TEntity, bool> predicate);

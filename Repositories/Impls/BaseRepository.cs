@@ -12,18 +12,18 @@ namespace Repositories.Impls
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        public Task<TEntity> AddAsync(TEntity entity) => BaseDAO<TEntity>.Instance.AddAsync(entity);
+        public TEntity Add(TEntity entity) => BaseDAO<TEntity>.Instance.Add(entity);
 
-        public Task<bool> DeleteAsync(TEntity entity) => BaseDAO<TEntity>.Instance.DeleteAsync(entity);
+        public bool Delete(TEntity entity) => BaseDAO<TEntity>.Instance.Delete(entity);
 
-        public Task<DbSet<TEntity>> GetAllAsync() => BaseDAO<TEntity>.Instance.GetAllAsync();
+        public DbSet<TEntity> GetAll() => BaseDAO<TEntity>.Instance.GetAll();
 
-        public Task<TEntity> GetByIdAsync(object id) => BaseDAO<TEntity>.Instance.GetByIdAsync(id);
+        public TEntity GetById(object id) => BaseDAO<TEntity>.Instance.GetById(id);
 
-        public Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate) => BaseDAO<TEntity>.Instance.GetFirstOrDefaultAsync(predicate);
+        public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> predicate) => BaseDAO<TEntity>.Instance.GetFirstOrDefault(predicate);
 
-        public Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate) => BaseDAO<TEntity>.Instance.GetWhereAsync(predicate);
+        public IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate) => BaseDAO<TEntity>.Instance.GetWhere(predicate);
 
-        public Task<bool> UpdateAsync(TEntity entity) => BaseDAO<TEntity>.Instance.UpdateAsync(entity);
+        public bool Update(TEntity entity) => BaseDAO<TEntity>.Instance.Update(entity);
     }
 }

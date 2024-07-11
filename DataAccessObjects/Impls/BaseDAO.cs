@@ -39,11 +39,11 @@ namespace DataAccessObjects.Impls
             }
         }
 
-        public async Task<TEntity> GetByIdAsync(object id)
+        public TEntity GetById(object id)
         {
             try
             {
-                return await _dbSet.FindAsync(id);
+                return _dbSet.Find(id);
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace DataAccessObjects.Impls
             }
         }
 
-        public async Task<DbSet<TEntity>> GetAllAsync()
+        public DbSet<TEntity> GetAll()
         {
             try
             {
@@ -65,11 +65,11 @@ namespace DataAccessObjects.Impls
             }
         }
 
-        public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             try
             {
-                return await _dbSet.FirstOrDefaultAsync(predicate);
+                return _dbSet.FirstOrDefault(predicate);
             }
             catch (Exception ex)
             {
@@ -78,11 +78,11 @@ namespace DataAccessObjects.Impls
             }
         }
 
-        public async Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate)
         {
             try
             {
-                return await _dbSet.Where(predicate).ToListAsync();
+                return _dbSet.Where(predicate).ToList();
             }
             catch (Exception ex)
             {
@@ -91,7 +91,7 @@ namespace DataAccessObjects.Impls
             }
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace DataAccessObjects.Impls
                 }
 
                 _dbSet.Add(entity);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return entity;
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace DataAccessObjects.Impls
         }
 
 
-        public async Task<bool> UpdateAsync(TEntity entity)
+        public bool Update(TEntity entity)
         {
             var entry = _context.Entry(entity);
 
@@ -132,15 +132,15 @@ namespace DataAccessObjects.Impls
             }
 
             entry.State = EntityState.Modified;
-            return await _context.SaveChangesAsync() > 0;
+            return _context.SaveChanges() > 0;
         }
 
-        public async Task<bool> DeleteAsync(TEntity entity)
+        public bool Delete(TEntity entity)
         {
             try
             {
                 _dbSet.Remove(entity);
-                return await _context.SaveChangesAsync() > 0;
+                return _context.SaveChanges() > 0;
             }
             catch (Exception ex)
             {

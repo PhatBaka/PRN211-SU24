@@ -10,12 +10,12 @@ namespace Repositories.Interfaces
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        Task<TEntity> GetByIdAsync(object id);
-        Task<DbSet<TEntity>> GetAllAsync();
-        Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> AddAsync(TEntity entity);
-        Task<bool> UpdateAsync(TEntity entity);
-        Task<bool> DeleteAsync(TEntity entity);
+        TEntity GetById(object id);
+        DbSet<TEntity> GetAll();
+        TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate);
+        TEntity Add(TEntity entity);
+        bool Update(TEntity entity);
+        bool Delete(TEntity entity);
     }
 }

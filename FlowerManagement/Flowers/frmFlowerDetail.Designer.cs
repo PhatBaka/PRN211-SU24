@@ -78,6 +78,7 @@ namespace FlowerManagement.Flowers
             imgFlower.Size = new Size(306, 267);
             imgFlower.TabIndex = 9;
             imgFlower.TabStop = false;
+            imgFlower.SizeMode = PictureBoxSizeMode.Zoom;
             imgFlower.Click += picImage_Click;
             // 
             // btnsave

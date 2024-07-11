@@ -119,7 +119,8 @@ namespace FlowerManagement.Flowers
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-
+            frmFlowerDetail frmFlowerDetail = new frmFlowerDetail();
+            frmFlowerDetail.ShowDialog();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

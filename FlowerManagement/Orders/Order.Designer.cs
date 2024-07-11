@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            btnAddToCart = new Button();
             btnViewCart = new Button();
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dgvFlowerList = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvFlowerList).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // btnAddToCart
             // 
-            button1.Location = new Point(737, 193);
-            button1.Name = "button1";
-            button1.Size = new Size(114, 29);
-            button1.TabIndex = 2;
-            button1.Text = "Add To Cart";
-            button1.UseVisualStyleBackColor = true;
+            btnAddToCart.Location = new Point(737, 193);
+            btnAddToCart.Name = "btnAddToCart";
+            btnAddToCart.Size = new Size(114, 29);
+            btnAddToCart.TabIndex = 2;
+            btnAddToCart.Text = "Add To Cart";
+            btnAddToCart.UseVisualStyleBackColor = true;
             // 
             // btnViewCart
             // 
@@ -52,34 +52,34 @@
             btnViewCart.Text = "View Cart";
             btnViewCart.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvFlowerList
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(26, 61);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(690, 423);
-            dataGridView1.TabIndex = 0;
+            dgvFlowerList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvFlowerList.Location = new Point(26, 61);
+            dgvFlowerList.Name = "dgvFlowerList";
+            dgvFlowerList.RowHeadersWidth = 51;
+            dgvFlowerList.RowTemplate.Height = 29;
+            dgvFlowerList.Size = new Size(690, 423);
+            dgvFlowerList.TabIndex = 0;
             // 
             // Order
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(879, 528);
-            Controls.Add(button1);
+            Controls.Add(btnAddToCart);
             Controls.Add(btnViewCart);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvFlowerList);
             Name = "Order";
             Text = "Order";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvFlowerList).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button button1;
+        private Button btnAddToCart;
         private Button btnViewCart;
-        private DataGridView dataGridView1;
+        private DataGridView dgvFlowerList;
     }
 }

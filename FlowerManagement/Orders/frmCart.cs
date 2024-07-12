@@ -13,7 +13,7 @@ namespace FlowerManagement.Orders
     public partial class frmCart : Form
     {
         public Dictionary<FlowerDetailDTO, int> selectedFlowers;
-        public CartDisplay selectedCartDisplay = null;
+        private CartDisplay selectedCartDisplay = null;
         public frmCart()
         {
             InitializeComponent();
@@ -93,6 +93,25 @@ namespace FlowerManagement.Orders
         {
             selectedFlowers.Clear();
             FillDataGridView();
+        }
+
+        private void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            frmCheckOutDetail _frmCheckOutDetail = new();
+            foreach (var f in selectedFlowers)
+            {
+                var flower = f.Key;
+                _frmCheckOutDetail.checkOutDetailList.Add(new CheckOutDetail()
+                {
+                    FlowerBouquetID = flower.FlowerBouquetID,
+                    FlowerBouquetName = flower.FlowerBouquetName,
+                    UnitPrice = flower.UnitPrice,
+                    Quantity = f.Value,
+                    Price = f.Value * flower.UnitPrice
+                });
+            }
+            _frmCheckOutDetail.frmCart = this;
+            _frmCheckOutDetail.ShowDialog();
         }
     }
 }

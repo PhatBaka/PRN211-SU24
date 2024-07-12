@@ -25,9 +25,6 @@ namespace BusinessObjects
 
         public int Quantity { get; set; }
 
-        [Column(TypeName = "float")]
-        public float Discount { get; set; }
-
         public virtual Order? Order { get; set; }
 
         public virtual Flower? Flower { get; set; }

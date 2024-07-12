@@ -21,6 +21,7 @@ namespace FlowerManagement.Orders
         private readonly IBaseRepository<Flower> _flowerRepo;
         public List<CheckOutDetail> checkOutDetailList;
         public frmCart frmCart = null;
+        public Customer Customer { get; set; } = null;
         public frmCheckOutDetail()
         {
             InitializeComponent();
@@ -36,7 +37,11 @@ namespace FlowerManagement.Orders
             dgvCheckOut.DataSource = checkOutDetailList;
             txtTotalPrice.Enabled = false;
             txtTotalPrice.Text = checkOutDetailList.Sum(x => x.Price).ToString();
-
+            txtFinalPrice.Text = txtTotalPrice.Text;
+            txtFinalPrice.Enabled = false;
+            chkDiscount.Enabled = (Customer.Point >= 150000) ? true : false;
+            txtDiscountRate.Enabled = false;
+            txtDiscountRate.Text = (Customer.Point >= 150000) ? "0.05" : "0.00";
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -46,39 +51,21 @@ namespace FlowerManagement.Orders
             {
                 return;
             }
-            var customer = _customerRepo.GetFirstOrDefault(c => c.Email == txtCustomerEmail.Text.Trim());
-            if (customer == null)
-            {
-                MessageBox.Show("Không tìm thấy khách hàng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
             decimal totalPrice = decimal.Parse(txtTotalPrice.Text);
-            decimal discountRate = 0m;
+            decimal finalPrice = decimal.Parse(txtFinalPrice.Text);
+            decimal discountRate = decimal.Parse(txtDiscountRate.Text);
             bool applyDiscount = chkDiscount.Checked;
-            if (applyDiscount)
-            {
-                if (customer.Point < 100000)
-                {
-                    rs = MessageBox.Show($"Điểm của bạn hiện tại là {customer.Point} không đủ để được giảm giá. Bạn có muốn tiếp tục tạo đơn hàng?", "Điểm không đủ", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    if (rs == DialogResult.Cancel)
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    discountRate = 0.05m;
-                    totalPrice = totalPrice * (1 - discountRate);
-                }
-            }
+
 
             var order = new Order()
             {
                 OrderDate = DateTime.Now,
-                TotalPrice = decimal.Parse(txtTotalPrice.Text),
+                TotalPrice = totalPrice,
                 OrderStatus = "Pending",
-                CustomerId = customer.CustomerId
+                CustomerId = Customer.CustomerId,
+                FinalPrice = finalPrice,
+                Discount = (float)discountRate
             };
             var createdOrder = _orderRepo.Add(order);
             foreach (var f in checkOutDetailList)
@@ -98,26 +85,43 @@ namespace FlowerManagement.Orders
                 }
             }
 
-            if (applyDiscount && customer.Point >= 100000)
+            if (applyDiscount && Customer.Point >= 150000)
             {
-                customer.Point -= 100000; // giảm điểm đi 100000.
+                Customer.Point -= 150000; 
             }
-            customer.Point += totalPrice; // Cộng điểm tích lũy
+            Customer.Point += finalPrice; // Cộng điểm tích lũy
+            var customerToUpdate = _customerRepo.GetFirstOrDefault(c => c.CustomerId == Customer.CustomerId);
+            customerToUpdate.Point = Customer.Point;
 
-            _customerRepo.Update(customer);
+            _customerRepo.Update(customerToUpdate);
 
             MessageBox.Show("Tạo đơn hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             frmCart.selectedFlowers.Clear();
             this.Close();
             frmCart.Close();
+            frmCart.frmOrder.FillDataGridView();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
             frmCart.Close();
+            frmCart.frmOrder = null;
         }
 
-        
+        private void chkDiscount_CheckedChanged(object sender, EventArgs e)
+        {
+            decimal totalPrice = decimal.Parse(txtTotalPrice.Text);
+            if (chkDiscount.Checked)
+            {
+                decimal discountRate = decimal.Parse(txtDiscountRate.Text);
+                var finalPrice = (1 - discountRate) * totalPrice;
+                txtFinalPrice.Text = finalPrice.ToString();
+            }
+            else
+            {
+                txtFinalPrice.Text = txtTotalPrice.Text;
+            }
+        }
     }
 }

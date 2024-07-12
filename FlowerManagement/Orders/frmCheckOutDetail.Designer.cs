@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             dgvCheckOut = new DataGridView();
-            txtCustomerEmail = new TextBox();
-            label1 = new Label();
             btnOK = new Button();
             btnCancel = new Button();
             label2 = new Label();
             txtTotalPrice = new TextBox();
             chkDiscount = new CheckBox();
             lblFinalPirce = new Label();
-            textBox1 = new TextBox();
+            txtFinalPrice = new TextBox();
+            label1 = new Label();
+            txtDiscountRate = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvCheckOut).BeginInit();
             SuspendLayout();
             // 
@@ -50,22 +50,6 @@
             dgvCheckOut.RowTemplate.Height = 29;
             dgvCheckOut.Size = new Size(784, 310);
             dgvCheckOut.TabIndex = 0;
-            // 
-            // txtCustomerEmail
-            // 
-            txtCustomerEmail.Location = new Point(190, 496);
-            txtCustomerEmail.Name = "txtCustomerEmail";
-            txtCustomerEmail.Size = new Size(181, 27);
-            txtCustomerEmail.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 503);
-            label1.Name = "label1";
-            label1.Size = new Size(122, 20);
-            label1.TabIndex = 2;
-            label1.Text = "Customer's email";
             // 
             // btnOK
             // 
@@ -106,12 +90,13 @@
             // chkDiscount
             // 
             chkDiscount.AutoSize = true;
-            chkDiscount.Location = new Point(453, 390);
+            chkDiscount.Location = new Point(374, 444);
             chkDiscount.Name = "chkDiscount";
             chkDiscount.Size = new Size(132, 24);
             chkDiscount.TabIndex = 9;
             chkDiscount.Text = "Apply Discount";
             chkDiscount.UseVisualStyleBackColor = true;
+            chkDiscount.CheckedChanged += chkDiscount_CheckedChanged;
             // 
             // lblFinalPirce
             // 
@@ -122,27 +107,43 @@
             lblFinalPirce.TabIndex = 11;
             lblFinalPirce.Text = "FinalPirce";
             // 
-            // textBox1
+            // txtFinalPrice
             // 
-            textBox1.Location = new Point(132, 441);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(215, 27);
-            textBox1.TabIndex = 10;
+            txtFinalPrice.Location = new Point(132, 441);
+            txtFinalPrice.Name = "txtFinalPrice";
+            txtFinalPrice.Size = new Size(215, 27);
+            txtFinalPrice.TabIndex = 10;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(374, 390);
+            label1.Name = "label1";
+            label1.Size = new Size(97, 20);
+            label1.TabIndex = 13;
+            label1.Text = "DiscountRate";
+            // 
+            // txtDiscountRate
+            // 
+            txtDiscountRate.Location = new Point(474, 387);
+            txtDiscountRate.Name = "txtDiscountRate";
+            txtDiscountRate.Size = new Size(215, 27);
+            txtDiscountRate.TabIndex = 12;
             // 
             // frmCheckOutDetail
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(875, 544);
+            Controls.Add(label1);
+            Controls.Add(txtDiscountRate);
             Controls.Add(lblFinalPirce);
-            Controls.Add(textBox1);
+            Controls.Add(txtFinalPrice);
             Controls.Add(chkDiscount);
             Controls.Add(label2);
             Controls.Add(txtTotalPrice);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
-            Controls.Add(label1);
-            Controls.Add(txtCustomerEmail);
             Controls.Add(dgvCheckOut);
             Name = "frmCheckOutDetail";
             Text = "CheckOutDetail";
@@ -155,14 +156,14 @@
         #endregion
 
         private DataGridView dgvCheckOut;
-        private TextBox txtCustomerEmail;
-        private Label label1;
         private Button btnOK;
         private Button btnCancel;
         private Label label2;
         private TextBox txtTotalPrice;
         private CheckBox chkDiscount;
         private Label lblFinalPirce;
-        private TextBox textBox1;
+        private TextBox txtFinalPrice;
+        private Label label1;
+        private TextBox txtDiscountRate;
     }
 }

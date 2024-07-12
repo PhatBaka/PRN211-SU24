@@ -28,12 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmCustomer";
+            btnOrderHistory = new Button();
+            btnMakeOrder = new Button();
+            SuspendLayout();
+            // 
+            // btnOrderHistory
+            // 
+            btnOrderHistory.Location = new Point(568, 287);
+            btnOrderHistory.Name = "btnOrderHistory";
+            btnOrderHistory.Size = new Size(117, 42);
+            btnOrderHistory.TabIndex = 0;
+            btnOrderHistory.Text = "Order History";
+            btnOrderHistory.UseVisualStyleBackColor = true;
+            btnOrderHistory.Click += btnOrderHistory_Click;
+            // 
+            // btnMakeOrder
+            // 
+            btnMakeOrder.Location = new Point(568, 122);
+            btnMakeOrder.Name = "btnMakeOrder";
+            btnMakeOrder.Size = new Size(117, 42);
+            btnMakeOrder.TabIndex = 1;
+            btnMakeOrder.Text = "Make Order";
+            btnMakeOrder.UseVisualStyleBackColor = true;
+            btnMakeOrder.Click += btnMakeOrder_Click;
+            // 
+            // frmCustomer
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(btnMakeOrder);
+            Controls.Add(btnOrderHistory);
+            Name = "frmCustomer";
+            Text = "frmCustomer";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button btnOrderHistory;
+        private Button btnMakeOrder;
     }
 }

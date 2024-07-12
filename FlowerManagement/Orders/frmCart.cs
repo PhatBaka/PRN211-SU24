@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BusinessObjects;
 
 namespace FlowerManagement.Orders
 {
@@ -14,6 +15,10 @@ namespace FlowerManagement.Orders
     {
         public Dictionary<FlowerDetailDTO, int> selectedFlowers;
         private CartDisplay selectedCartDisplay = null;
+        public frmOrder frmOrder = null;
+
+        public Customer Customer { get; set; } = null;
+
         public frmCart()
         {
             InitializeComponent();
@@ -111,6 +116,7 @@ namespace FlowerManagement.Orders
                 });
             }
             _frmCheckOutDetail.frmCart = this;
+            _frmCheckOutDetail.Customer = Customer;
             _frmCheckOutDetail.ShowDialog();
         }
     }

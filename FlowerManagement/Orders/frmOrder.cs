@@ -20,6 +20,7 @@ namespace FlowerManagement.Orders
         private readonly IBaseRepository<Supplier> _suppilierRepo;
         private FlowerDetailDTO _selectedFlower = null;
         private readonly frmCart _frmCart = new();
+        public Customer Customer { get; set; } = null;
         public frmOrder()
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace FlowerManagement.Orders
             //cboSupplier.DisplayMember = "SupplierName";
             //cboSupplier.ValueMember = "SupplierID";
             FillDataGridView();
+            _frmCart.Customer = Customer;
         }
 
         private List<FlowerDetailDTO> GetAllFlowerDetail()
@@ -63,7 +65,7 @@ namespace FlowerManagement.Orders
             return flowerDetailList;
         }
 
-        private void FillDataGridView()
+        public void FillDataGridView()
         {
             dgvFlowerList.DataSource = null;
             dgvFlowerList.DataSource = GetAllFlowerDetail();
@@ -104,13 +106,19 @@ namespace FlowerManagement.Orders
                 MessageBox.Show("Giỏ hàng rỗng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+            _frmCart.frmOrder = this;
             _frmCart.ShowDialog();
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             dgvFlowerList.DataSource = GetAllFlowerDetail().Where(f => f.FlowerBouquetName.ToLower().Contains(txtName.Text.ToLower().Trim())).ToList();
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            FillDataGridView();
         }
     }
 }

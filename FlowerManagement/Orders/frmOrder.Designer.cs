@@ -34,6 +34,7 @@
             lblName = new Label();
             btnSearch = new Button();
             txtName = new TextBox();
+            btnReload = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvFlowerList).BeginInit();
             SuspendLayout();
             // 
@@ -94,11 +95,22 @@
             txtName.Size = new Size(495, 27);
             txtName.TabIndex = 6;
             // 
+            // btnReload
+            // 
+            btnReload.Location = new Point(1101, 304);
+            btnReload.Name = "btnReload";
+            btnReload.Size = new Size(114, 29);
+            btnReload.TabIndex = 7;
+            btnReload.Text = "Reload";
+            btnReload.UseVisualStyleBackColor = true;
+            btnReload.Click += btnReload_Click;
+            // 
             // frmOrder
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1241, 707);
+            Controls.Add(btnReload);
             Controls.Add(txtName);
             Controls.Add(btnSearch);
             Controls.Add(lblName);
@@ -121,5 +133,6 @@
         private Label lblName;
         private Button btnSearch;
         private TextBox txtName;
+        private Button btnReload;
     }
 }

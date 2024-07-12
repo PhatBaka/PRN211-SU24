@@ -34,6 +34,9 @@ namespace BusinessObjects
 
         public string? CustomerStatus { get; set; }
 
+        [Column(TypeName = "money")]
+        public decimal Point { get; set; }
+
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

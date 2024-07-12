@@ -31,12 +31,16 @@
             btnAddToCart = new Button();
             btnViewCart = new Button();
             dgvFlowerList = new DataGridView();
+            lblName = new Label();
+            btnSearch = new Button();
+            txtName = new TextBox();
+            btnReload = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvFlowerList).BeginInit();
             SuspendLayout();
             // 
             // btnAddToCart
             // 
-            btnAddToCart.Location = new Point(737, 193);
+            btnAddToCart.Location = new Point(1101, 213);
             btnAddToCart.Name = "btnAddToCart";
             btnAddToCart.Size = new Size(114, 29);
             btnAddToCart.TabIndex = 2;
@@ -46,7 +50,7 @@
             // 
             // btnViewCart
             // 
-            btnViewCart.Location = new Point(737, 86);
+            btnViewCart.Location = new Point(1101, 114);
             btnViewCart.Name = "btnViewCart";
             btnViewCart.Size = new Size(114, 29);
             btnViewCart.TabIndex = 1;
@@ -57,19 +61,59 @@
             // dgvFlowerList
             // 
             dgvFlowerList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvFlowerList.Location = new Point(26, 61);
+            dgvFlowerList.Location = new Point(33, 114);
             dgvFlowerList.Name = "dgvFlowerList";
             dgvFlowerList.RowHeadersWidth = 51;
             dgvFlowerList.RowTemplate.Height = 29;
-            dgvFlowerList.Size = new Size(690, 423);
+            dgvFlowerList.Size = new Size(1041, 565);
             dgvFlowerList.TabIndex = 0;
             dgvFlowerList.SelectionChanged += dgvFlowerList_SelectionChanged;
+            // 
+            // lblName
+            // 
+            lblName.AutoSize = true;
+            lblName.Location = new Point(42, 48);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(49, 20);
+            lblName.TabIndex = 3;
+            lblName.Text = "Name";
+            // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(710, 44);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(114, 29);
+            btnSearch.TabIndex = 5;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // txtName
+            // 
+            txtName.Location = new Point(147, 44);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(495, 27);
+            txtName.TabIndex = 6;
+            // 
+            // btnReload
+            // 
+            btnReload.Location = new Point(1101, 304);
+            btnReload.Name = "btnReload";
+            btnReload.Size = new Size(114, 29);
+            btnReload.TabIndex = 7;
+            btnReload.Text = "Reload";
+            btnReload.UseVisualStyleBackColor = true;
+            btnReload.Click += btnReload_Click;
             // 
             // frmOrder
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(879, 528);
+            ClientSize = new Size(1241, 707);
+            Controls.Add(btnReload);
+            Controls.Add(txtName);
+            Controls.Add(btnSearch);
+            Controls.Add(lblName);
             Controls.Add(btnAddToCart);
             Controls.Add(btnViewCart);
             Controls.Add(dgvFlowerList);
@@ -78,6 +122,7 @@
             Load += Order_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFlowerList).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -85,5 +130,9 @@
         private Button btnAddToCart;
         private Button btnViewCart;
         private DataGridView dgvFlowerList;
+        private Label lblName;
+        private Button btnSearch;
+        private TextBox txtName;
+        private Button btnReload;
     }
 }

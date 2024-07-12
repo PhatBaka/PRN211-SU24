@@ -65,6 +65,7 @@
             btnCheckOut.TabIndex = 3;
             btnCheckOut.Text = "Check Out";
             btnCheckOut.UseVisualStyleBackColor = true;
+            btnCheckOut.Click += btnCheckOut_Click;
             // 
             // btnDeleteAll
             // 

@@ -28,82 +28,142 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            textBox1 = new TextBox();
+            dgvCheckOut = new DataGridView();
+            btnOK = new Button();
+            btnCancel = new Button();
+            label2 = new Label();
+            txtTotalPrice = new TextBox();
+            chkDiscount = new CheckBox();
+            lblFinalPirce = new Label();
+            txtFinalPrice = new TextBox();
             label1 = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            txtDiscountRate = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)dgvCheckOut).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvCheckOut
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(62, 51);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(644, 300);
-            dataGridView1.TabIndex = 0;
+            dgvCheckOut.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCheckOut.Location = new Point(41, 37);
+            dgvCheckOut.Name = "dgvCheckOut";
+            dgvCheckOut.RowHeadersWidth = 51;
+            dgvCheckOut.RowTemplate.Height = 29;
+            dgvCheckOut.Size = new Size(784, 310);
+            dgvCheckOut.TabIndex = 0;
             // 
-            // textBox1
+            // btnOK
             // 
-            textBox1.Location = new Point(145, 379);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(311, 27);
-            textBox1.TabIndex = 1;
+            btnOK.Location = new Point(731, 387);
+            btnOK.Name = "btnOK";
+            btnOK.Size = new Size(94, 29);
+            btnOK.TabIndex = 3;
+            btnOK.Text = "OK";
+            btnOK.UseVisualStyleBackColor = true;
+            btnOK.Click += btnOK_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new Point(731, 448);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(94, 29);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(41, 390);
+            label2.Name = "label2";
+            label2.Size = new Size(74, 20);
+            label2.TabIndex = 8;
+            label2.Text = "TotalPrice";
+            // 
+            // txtTotalPrice
+            // 
+            txtTotalPrice.Location = new Point(132, 387);
+            txtTotalPrice.Name = "txtTotalPrice";
+            txtTotalPrice.Size = new Size(215, 27);
+            txtTotalPrice.TabIndex = 7;
+            // 
+            // chkDiscount
+            // 
+            chkDiscount.AutoSize = true;
+            chkDiscount.Location = new Point(374, 444);
+            chkDiscount.Name = "chkDiscount";
+            chkDiscount.Size = new Size(132, 24);
+            chkDiscount.TabIndex = 9;
+            chkDiscount.Text = "Apply Discount";
+            chkDiscount.UseVisualStyleBackColor = true;
+            chkDiscount.CheckedChanged += chkDiscount_CheckedChanged;
+            // 
+            // lblFinalPirce
+            // 
+            lblFinalPirce.AutoSize = true;
+            lblFinalPirce.Location = new Point(41, 448);
+            lblFinalPirce.Name = "lblFinalPirce";
+            lblFinalPirce.Size = new Size(72, 20);
+            lblFinalPirce.TabIndex = 11;
+            lblFinalPirce.Text = "FinalPirce";
+            // 
+            // txtFinalPrice
+            // 
+            txtFinalPrice.Location = new Point(132, 441);
+            txtFinalPrice.Name = "txtFinalPrice";
+            txtFinalPrice.Size = new Size(215, 27);
+            txtFinalPrice.TabIndex = 10;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(43, 382);
+            label1.Location = new Point(374, 390);
             label1.Name = "label1";
-            label1.Size = new Size(87, 20);
-            label1.TabIndex = 2;
-            label1.Text = "CustomerID";
+            label1.Size = new Size(97, 20);
+            label1.TabIndex = 13;
+            label1.Text = "DiscountRate";
             // 
-            // button1
+            // txtDiscountRate
             // 
-            button1.Location = new Point(493, 377);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 3;
-            button1.Text = "OK";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(612, 377);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 4;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
+            txtDiscountRate.Location = new Point(474, 387);
+            txtDiscountRate.Name = "txtDiscountRate";
+            txtDiscountRate.Size = new Size(215, 27);
+            txtDiscountRate.TabIndex = 12;
             // 
             // frmCheckOutDetail
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            ClientSize = new Size(875, 544);
             Controls.Add(label1);
-            Controls.Add(textBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(txtDiscountRate);
+            Controls.Add(lblFinalPirce);
+            Controls.Add(txtFinalPrice);
+            Controls.Add(chkDiscount);
+            Controls.Add(label2);
+            Controls.Add(txtTotalPrice);
+            Controls.Add(btnCancel);
+            Controls.Add(btnOK);
+            Controls.Add(dgvCheckOut);
             Name = "frmCheckOutDetail";
             Text = "CheckOutDetail";
             Load += frmCheckOutDetail_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCheckOut).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private TextBox textBox1;
+        private DataGridView dgvCheckOut;
+        private Button btnOK;
+        private Button btnCancel;
+        private Label label2;
+        private TextBox txtTotalPrice;
+        private CheckBox chkDiscount;
+        private Label lblFinalPirce;
+        private TextBox txtFinalPrice;
         private Label label1;
-        private Button button1;
-        private Button button2;
+        private TextBox txtDiscountRate;
     }
 }

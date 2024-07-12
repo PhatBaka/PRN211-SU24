@@ -17,6 +17,7 @@ namespace FlowerManagement.Orders
     {
         public Customer Customer { get; set; } = null;
         private readonly IBaseRepository<Order> _orderRepo = new BaseRepository<Order>();
+        private OrderDTO _selectedOrderDTO = null;
         public frmOrderHistory()
         {
             InitializeComponent();
@@ -54,9 +55,7 @@ namespace FlowerManagement.Orders
         {
             if (dgvOrderList.SelectedRows.Count > 0)
             {
-                frmOrderDetail detailForm = new();
-                detailForm.SelectedOrder = (OrderDTO)dgvOrderList.SelectedRows[0].DataBoundItem;
-                detailForm.ShowDialog();
+                _selectedOrderDTO = (OrderDTO)dgvOrderList.SelectedRows[0].DataBoundItem;
             }
         }
 
@@ -64,6 +63,18 @@ namespace FlowerManagement.Orders
         {
             dgvOrderList.DataSource = null;
             dgvOrderList.DataSource = GetAllOrderDTOs();
+        }
+
+        private void btnViewDetail_Click(object sender, EventArgs e)
+        {
+            if (dgvOrderList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Không có hàng nào được chọn", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            frmOrderDetail detailForm = new();
+            detailForm.SelectedOrder = (OrderDTO)dgvOrderList.SelectedRows[0].DataBoundItem;
+            detailForm.ShowDialog();
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             dgvOrderList = new DataGridView();
             btnReload = new Button();
+            btnViewDetail = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvOrderList).BeginInit();
             SuspendLayout();
             // 
@@ -40,13 +41,13 @@
             dgvOrderList.Name = "dgvOrderList";
             dgvOrderList.RowHeadersWidth = 51;
             dgvOrderList.RowTemplate.Height = 29;
-            dgvOrderList.Size = new Size(803, 439);
+            dgvOrderList.Size = new Size(812, 439);
             dgvOrderList.TabIndex = 0;
             dgvOrderList.SelectionChanged += dgvOrderList_SelectionChanged;
             // 
             // btnReload
             // 
-            btnReload.Location = new Point(865, 46);
+            btnReload.Location = new Point(865, 153);
             btnReload.Name = "btnReload";
             btnReload.Size = new Size(94, 29);
             btnReload.TabIndex = 1;
@@ -54,11 +55,22 @@
             btnReload.UseVisualStyleBackColor = true;
             btnReload.Click += btnReload_Click;
             // 
+            // btnViewDetail
+            // 
+            btnViewDetail.Location = new Point(865, 46);
+            btnViewDetail.Name = "btnViewDetail";
+            btnViewDetail.Size = new Size(94, 29);
+            btnViewDetail.TabIndex = 2;
+            btnViewDetail.Text = "View Detail";
+            btnViewDetail.UseVisualStyleBackColor = true;
+            btnViewDetail.Click += btnViewDetail_Click;
+            // 
             // frmOrderHistory
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(971, 542);
+            ClientSize = new Size(988, 542);
+            Controls.Add(btnViewDetail);
             Controls.Add(btnReload);
             Controls.Add(dgvOrderList);
             Name = "frmOrderHistory";
@@ -72,5 +84,6 @@
 
         private DataGridView dgvOrderList;
         private Button btnReload;
+        private Button btnViewDetail;
     }
 }

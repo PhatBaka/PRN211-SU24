@@ -36,6 +36,7 @@ namespace FlowerManagement.Orders
             dgvCheckOut.DataSource = checkOutDetailList;
             txtTotalPrice.Enabled = false;
             txtTotalPrice.Text = checkOutDetailList.Sum(x => x.Price).ToString();
+
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -48,8 +49,30 @@ namespace FlowerManagement.Orders
             var customer = _customerRepo.GetFirstOrDefault(c => c.Email == txtCustomerEmail.Text.Trim());
             if (customer == null)
             {
+                MessageBox.Show("Không tìm thấy khách hàng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            decimal totalPrice = decimal.Parse(txtTotalPrice.Text);
+            decimal discountRate = 0m;
+            bool applyDiscount = chkDiscount.Checked;
+            if (applyDiscount)
+            {
+                if (customer.Point < 100000)
+                {
+                    rs = MessageBox.Show($"Điểm của bạn hiện tại là {customer.Point} không đủ để được giảm giá. Bạn có muốn tiếp tục tạo đơn hàng?", "Điểm không đủ", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (rs == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    discountRate = 0.05m;
+                    totalPrice = totalPrice * (1 - discountRate);
+                }
+            }
+
             var order = new Order()
             {
                 OrderDate = DateTime.Now,
@@ -57,10 +80,6 @@ namespace FlowerManagement.Orders
                 OrderStatus = "Pending",
                 CustomerId = customer.CustomerId
             };
-            float discount = 0;//lấy dữ liệu từ ô discount rate hiển thị trên form CheckOutDetail
-            //check đk point ở đây
-            order.FinalPrice = discount == 0 ? order.TotalPrice : order.TotalPrice * (1 - (decimal)discount);
-            order.Discount = discount;
             var createdOrder = _orderRepo.Add(order);
             foreach (var f in checkOutDetailList)
             {
@@ -78,6 +97,15 @@ namespace FlowerManagement.Orders
                     _flowerRepo.Update(flower);
                 }
             }
+
+            if (applyDiscount && customer.Point >= 100000)
+            {
+                customer.Point -= 100000; // giảm điểm đi 100000.
+            }
+            customer.Point += totalPrice; // Cộng điểm tích lũy
+
+            _customerRepo.Update(customer);
+
             MessageBox.Show("Tạo đơn hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             frmCart.selectedFlowers.Clear();
             this.Close();
@@ -89,5 +117,7 @@ namespace FlowerManagement.Orders
             this.Close();
             frmCart.Close();
         }
+
+        
     }
 }

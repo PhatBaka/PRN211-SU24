@@ -35,6 +35,9 @@
             btnCancel = new Button();
             label2 = new Label();
             txtTotalPrice = new TextBox();
+            chkDiscount = new CheckBox();
+            lblFinalPirce = new Label();
+            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvCheckOut).BeginInit();
             SuspendLayout();
             // 
@@ -45,20 +48,20 @@
             dgvCheckOut.Name = "dgvCheckOut";
             dgvCheckOut.RowHeadersWidth = 51;
             dgvCheckOut.RowTemplate.Height = 29;
-            dgvCheckOut.Size = new Size(757, 310);
+            dgvCheckOut.Size = new Size(784, 310);
             dgvCheckOut.TabIndex = 0;
             // 
             // txtCustomerEmail
             // 
-            txtCustomerEmail.Location = new Point(199, 455);
+            txtCustomerEmail.Location = new Point(190, 496);
             txtCustomerEmail.Name = "txtCustomerEmail";
-            txtCustomerEmail.Size = new Size(311, 27);
+            txtCustomerEmail.Size = new Size(181, 27);
             txtCustomerEmail.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(41, 462);
+            label1.Location = new Point(12, 503);
             label1.Name = "label1";
             label1.Size = new Size(122, 20);
             label1.TabIndex = 2;
@@ -66,7 +69,7 @@
             // 
             // btnOK
             // 
-            btnOK.Location = new Point(690, 390);
+            btnOK.Location = new Point(731, 387);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(94, 29);
             btnOK.TabIndex = 3;
@@ -76,7 +79,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(690, 458);
+            btnCancel.Location = new Point(731, 448);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 4;
@@ -95,16 +98,45 @@
             // 
             // txtTotalPrice
             // 
-            txtTotalPrice.Location = new Point(199, 390);
+            txtTotalPrice.Location = new Point(132, 387);
             txtTotalPrice.Name = "txtTotalPrice";
-            txtTotalPrice.Size = new Size(311, 27);
+            txtTotalPrice.Size = new Size(215, 27);
             txtTotalPrice.TabIndex = 7;
+            // 
+            // chkDiscount
+            // 
+            chkDiscount.AutoSize = true;
+            chkDiscount.Location = new Point(453, 390);
+            chkDiscount.Name = "chkDiscount";
+            chkDiscount.Size = new Size(132, 24);
+            chkDiscount.TabIndex = 9;
+            chkDiscount.Text = "Apply Discount";
+            chkDiscount.UseVisualStyleBackColor = true;
+            // 
+            // lblFinalPirce
+            // 
+            lblFinalPirce.AutoSize = true;
+            lblFinalPirce.Location = new Point(41, 448);
+            lblFinalPirce.Name = "lblFinalPirce";
+            lblFinalPirce.Size = new Size(72, 20);
+            lblFinalPirce.TabIndex = 11;
+            lblFinalPirce.Text = "FinalPirce";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(132, 441);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(215, 27);
+            textBox1.TabIndex = 10;
             // 
             // frmCheckOutDetail
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(875, 544);
+            Controls.Add(lblFinalPirce);
+            Controls.Add(textBox1);
+            Controls.Add(chkDiscount);
             Controls.Add(label2);
             Controls.Add(txtTotalPrice);
             Controls.Add(btnCancel);
@@ -129,5 +161,8 @@
         private Button btnCancel;
         private Label label2;
         private TextBox txtTotalPrice;
+        private CheckBox chkDiscount;
+        private Label lblFinalPirce;
+        private TextBox textBox1;
     }
 }

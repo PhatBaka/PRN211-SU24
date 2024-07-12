@@ -53,10 +53,14 @@ namespace FlowerManagement.Orders
             var order = new Order()
             {
                 OrderDate = DateTime.Now,
-                Total = decimal.Parse(txtTotalPrice.Text),
+                TotalPrice = decimal.Parse(txtTotalPrice.Text),
                 OrderStatus = "Pending",
                 CustomerId = customer.CustomerId
             };
+            float discount = 0;//lấy dữ liệu từ ô discount rate hiển thị trên form CheckOutDetail
+            //check đk point ở đây
+            order.FinalPrice = discount == 0 ? order.TotalPrice : order.TotalPrice * (1 - (decimal)discount);
+            order.Discount = discount;
             var createdOrder = _orderRepo.Add(order);
             foreach (var f in checkOutDetailList)
             {
@@ -69,11 +73,10 @@ namespace FlowerManagement.Orders
                         FlowerBouquetID = f.FlowerBouquetID,
                         UnitPrice = (decimal)f.UnitPrice,
                         Quantity = (int)f.Quantity,
-                        Discount = 0
                     });
                     flower.UnitsInStock -= (int)f.Quantity;
                     _flowerRepo.Update(flower);
-                }  
+                }
             }
             MessageBox.Show("Tạo đơn hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             frmCart.selectedFlowers.Clear();

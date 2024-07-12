@@ -18,6 +18,8 @@ namespace FlowerManagement.Orders
         private readonly IBaseRepository<Flower> _flowerRepo;
         private readonly IBaseRepository<Category> _categoryRepo;
         private readonly IBaseRepository<Supplier> _suppilierRepo;
+        private FlowerDetailDTO _selectedFlower = null;
+        private readonly frmCart _frmCart = new();
         public frmOrder()
         {
             InitializeComponent();
@@ -65,8 +67,39 @@ namespace FlowerManagement.Orders
         {
             if (dgvFlowerList.SelectedRows.Count > 0)
             {
-
+                _selectedFlower = (FlowerDetailDTO)dgvFlowerList.SelectedRows[0].DataBoundItem;
             }
+        }
+
+        private void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            if (dgvFlowerList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Không có hàng nào được chọn!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            if (_frmCart.selectedFlowers.ContainsKey(_selectedFlower))
+            {
+                _frmCart.selectedFlowers[_selectedFlower]++;
+            }
+            else
+            {
+                _frmCart.selectedFlowers.Add(_selectedFlower, 1);
+            }
+
+        }
+
+        private void btnViewCart_Click(object sender, EventArgs e)
+        {
+            if (_frmCart.selectedFlowers.Count() == 0)
+            {
+                MessageBox.Show("Giỏ hàng rỗng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _frmCart.ShowDialog();
         }
     }
 }

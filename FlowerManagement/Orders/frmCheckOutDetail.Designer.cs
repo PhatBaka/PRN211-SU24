@@ -80,7 +80,7 @@
             button2.Text = "Cancel";
             button2.UseVisualStyleBackColor = true;
             // 
-            // CheckOutDetail
+            // frmCheckOutDetail
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -90,8 +90,9 @@
             Controls.Add(label1);
             Controls.Add(textBox1);
             Controls.Add(dataGridView1);
-            Name = "CheckOutDetail";
+            Name = "frmCheckOutDetail";
             Text = "CheckOutDetail";
+            Load += frmCheckOutDetail_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

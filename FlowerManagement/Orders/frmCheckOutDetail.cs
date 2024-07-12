@@ -12,9 +12,15 @@ namespace FlowerManagement.Orders
 {
     public partial class frmCheckOutDetail : Form
     {
+        
         public frmCheckOutDetail()
         {
             InitializeComponent();
+        }
+
+        private void frmCheckOutDetail_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

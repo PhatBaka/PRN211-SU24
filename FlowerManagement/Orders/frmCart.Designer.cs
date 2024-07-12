@@ -28,82 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dgvCartList = new DataGridView();
+            btnDelete = new Button();
+            btnCheckOut = new Button();
+            btnDeleteAll = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvCartList).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvCartList
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(42, 57);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(525, 329);
-            dataGridView1.TabIndex = 0;
+            dgvCartList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCartList.Location = new Point(42, 57);
+            dgvCartList.Name = "dgvCartList";
+            dgvCartList.RowHeadersWidth = 51;
+            dgvCartList.RowTemplate.Height = 29;
+            dgvCartList.Size = new Size(525, 329);
+            dgvCartList.TabIndex = 0;
+            dgvCartList.CellValueChanged += dgvCartList_CellValueChanged;
+            dgvCartList.SelectionChanged += dgvCartList_SelectionChanged;
             // 
-            // button1
+            // btnDelete
             // 
-            button1.Location = new Point(628, 57);
-            button1.Name = "button1";
-            button1.Size = new Size(113, 29);
-            button1.TabIndex = 1;
-            button1.Text = "Update";
-            button1.UseVisualStyleBackColor = true;
+            btnDelete.Location = new Point(628, 68);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(113, 29);
+            btnDelete.TabIndex = 2;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
-            // button2
+            // btnCheckOut
             // 
-            button2.Location = new Point(628, 160);
-            button2.Name = "button2";
-            button2.Size = new Size(113, 29);
-            button2.TabIndex = 2;
-            button2.Text = "Delete";
-            button2.UseVisualStyleBackColor = true;
+            btnCheckOut.Location = new Point(628, 311);
+            btnCheckOut.Name = "btnCheckOut";
+            btnCheckOut.Size = new Size(113, 29);
+            btnCheckOut.TabIndex = 3;
+            btnCheckOut.Text = "Check Out";
+            btnCheckOut.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnDeleteAll
             // 
-            button3.Location = new Point(628, 252);
-            button3.Name = "button3";
-            button3.Size = new Size(113, 29);
-            button3.TabIndex = 3;
-            button3.Text = "Check Out";
-            button3.UseVisualStyleBackColor = true;
+            btnDeleteAll.Location = new Point(628, 184);
+            btnDeleteAll.Name = "btnDeleteAll";
+            btnDeleteAll.Size = new Size(113, 29);
+            btnDeleteAll.TabIndex = 4;
+            btnDeleteAll.Text = "Delete All";
+            btnDeleteAll.UseVisualStyleBackColor = true;
+            btnDeleteAll.Click += btnDeleteAll_Click;
             // 
-            // button4
-            // 
-            button4.Location = new Point(628, 357);
-            button4.Name = "button4";
-            button4.Size = new Size(113, 29);
-            button4.TabIndex = 4;
-            button4.Text = "Hide";
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // Cart
+            // frmCart
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(dataGridView1);
-            Name = "Cart";
+            Controls.Add(btnDeleteAll);
+            Controls.Add(btnCheckOut);
+            Controls.Add(btnDelete);
+            Controls.Add(dgvCartList);
+            Name = "frmCart";
             Text = "Cart";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Load += frmCart_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvCartList).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
+        private DataGridView dgvCartList;
+        private Button btnDelete;
+        private Button btnCheckOut;
+        private Button btnDeleteAll;
     }
 }

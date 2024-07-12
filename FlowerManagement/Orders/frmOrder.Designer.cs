@@ -42,6 +42,7 @@
             btnAddToCart.TabIndex = 2;
             btnAddToCart.Text = "Add To Cart";
             btnAddToCart.UseVisualStyleBackColor = true;
+            btnAddToCart.Click += btnAddToCart_Click;
             // 
             // btnViewCart
             // 
@@ -51,6 +52,7 @@
             btnViewCart.TabIndex = 1;
             btnViewCart.Text = "View Cart";
             btnViewCart.UseVisualStyleBackColor = true;
+            btnViewCart.Click += btnViewCart_Click;
             // 
             // dgvFlowerList
             // 

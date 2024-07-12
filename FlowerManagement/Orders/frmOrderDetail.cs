@@ -27,7 +27,7 @@ namespace FlowerManagement.Orders
         private void frmOrderDetail_Load(object sender, EventArgs e)
         {
             var list = new List<CheckOutDetail>();
-            var orderDetailList = _orderDetailRepo.GetAll().ToList();
+            var orderDetailList = _orderDetailRepo.GetWhere(od => od.OrderID == SelectedOrder.OrderId).ToList();
             foreach (var od in orderDetailList)
             {
                 list.Add(new CheckOutDetail()

@@ -30,6 +30,12 @@ namespace FlowerManagement.Orders
 
         private void Order_Load(object sender, EventArgs e)
         {
+            //cboCategory.DataSource = _categoryRepo.GetAll().ToList();
+            //cboCategory.DisplayMember = "CategoryName";
+            //cboCategory.ValueMember = "CategoryID";
+            //cboSupplier.DataSource = _suppilierRepo.GetAll().ToList();
+            //cboSupplier.DisplayMember = "SupplierName";
+            //cboSupplier.ValueMember = "SupplierID";
             FillDataGridView();
         }
 
@@ -100,6 +106,11 @@ namespace FlowerManagement.Orders
             }
 
             _frmCart.ShowDialog();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            dgvFlowerList.DataSource = GetAllFlowerDetail().Where(f => f.FlowerBouquetName.ToLower().Contains(txtName.Text.ToLower().Trim())).ToList();
         }
     }
 }

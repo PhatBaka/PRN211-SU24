@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvFlower = new DataGridView();
             lblTitle = new Label();
             label6 = new Label();
             Supplier = new Label();
@@ -54,19 +53,10 @@
             label8 = new Label();
             label9 = new Label();
             txtID = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dgvFlower).BeginInit();
+            dgvFlower = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)imgFlower).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvFlower).BeginInit();
             SuspendLayout();
-            // 
-            // dgvFlower
-            // 
-            dgvFlower.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvFlower.Location = new Point(99, 427);
-            dgvFlower.Name = "dgvFlower";
-            dgvFlower.RowHeadersWidth = 51;
-            dgvFlower.RowTemplate.Height = 29;
-            dgvFlower.Size = new Size(761, 227);
-            dgvFlower.TabIndex = 0;
             // 
             // lblTitle
             // 
@@ -165,10 +155,9 @@
             imgFlower.Location = new Point(25, 76);
             imgFlower.Name = "imgFlower";
             imgFlower.Size = new Size(306, 267);
-            imgFlower.SizeMode = PictureBoxSizeMode.Zoom; // This line ensures the image fits the PictureBox
+            imgFlower.SizeMode = PictureBoxSizeMode.Zoom;
             imgFlower.TabIndex = 27;
             imgFlower.TabStop = false;
-
             // 
             // txtUnitsInStock
             // 
@@ -222,7 +211,7 @@
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(407, 314);
+            btnCreate.Location = new Point(444, 314);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(94, 29);
             btnCreate.TabIndex = 42;
@@ -232,7 +221,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(539, 314);
+            btnDelete.Location = new Point(544, 314);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 43;
@@ -242,7 +231,7 @@
             // 
             // btnLoad
             // 
-            btnLoad.Location = new Point(672, 314);
+            btnLoad.Location = new Point(644, 314);
             btnLoad.Name = "btnLoad";
             btnLoad.Size = new Size(94, 29);
             btnLoad.TabIndex = 44;
@@ -292,11 +281,23 @@
             txtID.Size = new Size(403, 27);
             txtID.TabIndex = 49;
             // 
+            // dgvFlower
+            // 
+            dgvFlower.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvFlower.Location = new Point(25, 434);
+            dgvFlower.Name = "dgvFlower";
+            dgvFlower.RowHeadersWidth = 51;
+            dgvFlower.RowTemplate.Height = 29;
+            dgvFlower.Size = new Size(881, 221);
+            dgvFlower.TabIndex = 50;
+            dgvFlower.CellDoubleClick += dgvFlower_CellDoubleClick;
+            // 
             // frmFlower
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(918, 667);
+            Controls.Add(dgvFlower);
             Controls.Add(txtID);
             Controls.Add(label9);
             Controls.Add(label8);
@@ -322,19 +323,17 @@
             Controls.Add(txtUnitsInStock);
             Controls.Add(txtUnitPrice);
             Controls.Add(txtFlowerBouquetName);
-            Controls.Add(dgvFlower);
             Name = "frmFlower";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmFlower";
             Load += frmFlower_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvFlower).EndInit();
             ((System.ComponentModel.ISupportInitialize)imgFlower).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvFlower).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private DataGridView dgvFlower;
         private Label lblTitle;
         private Label label6;
         private Label Supplier;
@@ -360,5 +359,6 @@
         private Label label8;
         private Label label9;
         private TextBox txtID;
+        private DataGridView dgvFlower;
     }
 }

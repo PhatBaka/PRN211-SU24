@@ -114,25 +114,10 @@ namespace DataAccessObjects.Impls
         }
 
 
-        public bool Update(TEntity entity)
+        public void Update(TEntity entity)
         {
-            var entry = _context.Entry(entity);
-
-            if (entry.State == EntityState.Detached)
-            {
-                _dbSet.Attach(entity);
-                entry = _context.Entry(entity);
-            }
-
-            var isModified = entry.Properties.Any(p => p.IsModified);
-
-            if (!isModified)
-            {
-                return true;
-            }
-
-            entry.State = EntityState.Modified;
-            return _context.SaveChanges() > 0;
+            _context.Update(entity);
+            _context.SaveChanges();
         }
 
         public bool Delete(TEntity entity)

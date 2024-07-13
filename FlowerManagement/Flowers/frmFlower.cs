@@ -33,10 +33,16 @@ namespace FlowerManagement.Flowers
             LoadEntities();
         }
 
-        private void LoadEntities()
+        public void LoadEntities()
         {
-            cbSupplier.DataSource = _supplierRepository.GetAll().ToList();
             cbCategory.DataSource = _categoryRepository.GetAll().ToList();
+            cbCategory.DisplayMember = "CategoryName";
+            cbCategory.ValueMember = "CategoryID";
+
+            cbSupplier.DataSource = _supplierRepository.GetAll().ToList();
+            cbSupplier.DisplayMember = "SupplierName";
+            cbSupplier.ValueMember = "SupplierID";
+
             source = new BindingSource();
             IList<FlowerViewModel> list = new List<FlowerViewModel>();
 
@@ -119,13 +125,29 @@ namespace FlowerManagement.Flowers
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            frmFlowerDetail frmFlowerDetail = new frmFlowerDetail();
+            frmFlowerDetail frmFlowerDetail = new frmFlowerDetail()
+            {
+                frmFlower = this,
+                InsertOrUpdate = false
+            };
             frmFlowerDetail.ShowDialog();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                var flower = _flowerRepository.GetById(Int32.Parse(txtID.Text));
+                if (_flowerRepository.Delete(flower))
+                {
+                    MessageBox.Show($"Delete {flower.FlowerBouquetName} successfullt");
+                }
+                LoadEntities();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Delete a flower");
+            }
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -147,6 +169,35 @@ namespace FlowerManagement.Flowers
                     e.Value = Image.FromStream(ms);
                 }
             }
+        }
+
+        private void dgvFlower_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            frmFlowerDetail frmFlowerDetail = new frmFlowerDetail()
+            {
+                Text = "Update flower",
+                InsertOrUpdate = true,
+                flower = GetFlower(),
+                frmFlower = this
+            };
+            frmFlowerDetail.ShowDialog();
+        }
+
+        private Flower GetFlower()
+        {
+            Flower flower = new Flower()
+            {
+                FlowerBouquetID = Int32.Parse(txtID.Text),
+                CategoryID = Int32.Parse(cbCategory.SelectedValue.ToString()),
+                SupplierID = Int32.Parse(cbSupplier.SelectedValue.ToString()),
+                Description = txtDescription.Text,
+                FlowerBouquetName = txtFlowerBouquetName.Text,
+                Image = Utils.Utils.ImageToByteArray(imgFlower.Image),
+                Morphology = txtMorphology.Text,
+                UnitPrice = decimal.Parse(txtUnitPrice.Text),
+                UnitsInStock = Int32.Parse(txtUnitsInStock.Text)
+            };
+            return flower;
         }
     }
 }

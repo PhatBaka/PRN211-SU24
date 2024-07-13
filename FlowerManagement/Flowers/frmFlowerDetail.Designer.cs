@@ -46,26 +46,28 @@ namespace FlowerManagement.Flowers
             Supplier = new Label();
             label6 = new Label();
             lblTitle = new Label();
+            label7 = new Label();
+            txtId = new TextBox();
             ((System.ComponentModel.ISupportInitialize)imgFlower).BeginInit();
             SuspendLayout();
             // 
             // txtFlowerBouquetName
             // 
-            txtFlowerBouquetName.Location = new Point(438, 63);
+            txtFlowerBouquetName.Location = new Point(438, 86);
             txtFlowerBouquetName.Name = "txtFlowerBouquetName";
             txtFlowerBouquetName.Size = new Size(403, 27);
             txtFlowerBouquetName.TabIndex = 1;
             // 
             // txtUnitPrice
             // 
-            txtUnitPrice.Location = new Point(438, 208);
+            txtUnitPrice.Location = new Point(438, 231);
             txtUnitPrice.Name = "txtUnitPrice";
             txtUnitPrice.Size = new Size(151, 27);
             txtUnitPrice.TabIndex = 3;
             // 
             // txtUnitsInStock
             // 
-            txtUnitsInStock.Location = new Point(690, 212);
+            txtUnitsInStock.Location = new Point(690, 235);
             txtUnitsInStock.Name = "txtUnitsInStock";
             txtUnitsInStock.Size = new Size(151, 27);
             txtUnitsInStock.TabIndex = 5;
@@ -76,14 +78,14 @@ namespace FlowerManagement.Flowers
             imgFlower.Location = new Point(19, 63);
             imgFlower.Name = "imgFlower";
             imgFlower.Size = new Size(306, 267);
+            imgFlower.SizeMode = PictureBoxSizeMode.Zoom;
             imgFlower.TabIndex = 9;
             imgFlower.TabStop = false;
-            imgFlower.SizeMode = PictureBoxSizeMode.Zoom;
             imgFlower.Click += picImage_Click;
             // 
             // btnsave
             // 
-            btnsave.Location = new Point(602, 305);
+            btnsave.Location = new Point(576, 324);
             btnsave.Name = "btnsave";
             btnsave.Size = new Size(82, 25);
             btnsave.TabIndex = 11;
@@ -94,7 +96,7 @@ namespace FlowerManagement.Flowers
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(383, 66);
+            label1.Location = new Point(383, 89);
             label1.Name = "label1";
             label1.Size = new Size(49, 20);
             label1.TabIndex = 12;
@@ -103,7 +105,7 @@ namespace FlowerManagement.Flowers
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(594, 215);
+            label2.Location = new Point(594, 238);
             label2.Name = "label2";
             label2.Size = new Size(90, 20);
             label2.TabIndex = 13;
@@ -112,7 +114,7 @@ namespace FlowerManagement.Flowers
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(347, 111);
+            label3.Location = new Point(347, 134);
             label3.Name = "label3";
             label3.Size = new Size(85, 20);
             label3.TabIndex = 14;
@@ -120,7 +122,7 @@ namespace FlowerManagement.Flowers
             // 
             // txtDescription
             // 
-            txtDescription.Location = new Point(438, 96);
+            txtDescription.Location = new Point(438, 119);
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(403, 57);
             txtDescription.TabIndex = 15;
@@ -129,7 +131,7 @@ namespace FlowerManagement.Flowers
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(360, 211);
+            label4.Location = new Point(360, 234);
             label4.Name = "label4";
             label4.Size = new Size(72, 20);
             label4.TabIndex = 16;
@@ -138,7 +140,7 @@ namespace FlowerManagement.Flowers
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(341, 170);
+            label5.Location = new Point(341, 193);
             label5.Name = "label5";
             label5.Size = new Size(91, 20);
             label5.TabIndex = 17;
@@ -146,7 +148,7 @@ namespace FlowerManagement.Flowers
             // 
             // txtMorphology
             // 
-            txtMorphology.Location = new Point(438, 167);
+            txtMorphology.Location = new Point(438, 190);
             txtMorphology.Name = "txtMorphology";
             txtMorphology.Size = new Size(403, 27);
             txtMorphology.TabIndex = 18;
@@ -154,7 +156,7 @@ namespace FlowerManagement.Flowers
             // cbSupplier
             // 
             cbSupplier.FormattingEnabled = true;
-            cbSupplier.Location = new Point(438, 252);
+            cbSupplier.Location = new Point(438, 275);
             cbSupplier.Name = "cbSupplier";
             cbSupplier.Size = new Size(151, 28);
             cbSupplier.TabIndex = 19;
@@ -162,7 +164,7 @@ namespace FlowerManagement.Flowers
             // cbCategory
             // 
             cbCategory.FormattingEnabled = true;
-            cbCategory.Location = new Point(690, 252);
+            cbCategory.Location = new Point(690, 275);
             cbCategory.Name = "cbCategory";
             cbCategory.Size = new Size(151, 28);
             cbCategory.TabIndex = 20;
@@ -170,7 +172,7 @@ namespace FlowerManagement.Flowers
             // Supplier
             // 
             Supplier.AutoSize = true;
-            Supplier.Location = new Point(368, 255);
+            Supplier.Location = new Point(368, 278);
             Supplier.Name = "Supplier";
             Supplier.Size = new Size(64, 20);
             Supplier.TabIndex = 21;
@@ -179,7 +181,7 @@ namespace FlowerManagement.Flowers
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(615, 255);
+            label6.Location = new Point(615, 278);
             label6.Name = "label6";
             label6.Size = new Size(69, 20);
             label6.TabIndex = 22;
@@ -194,11 +196,29 @@ namespace FlowerManagement.Flowers
             lblTitle.TabIndex = 23;
             lblTitle.Text = "label7";
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(408, 56);
+            label7.Name = "label7";
+            label7.Size = new Size(24, 20);
+            label7.TabIndex = 24;
+            label7.Text = "ID";
+            // 
+            // txtId
+            // 
+            txtId.Location = new Point(438, 53);
+            txtId.Name = "txtId";
+            txtId.Size = new Size(125, 27);
+            txtId.TabIndex = 25;
+            // 
             // frmFlowerDetail
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(853, 347);
+            ClientSize = new Size(853, 373);
+            Controls.Add(txtId);
+            Controls.Add(label7);
             Controls.Add(lblTitle);
             Controls.Add(label6);
             Controls.Add(Supplier);
@@ -217,7 +237,9 @@ namespace FlowerManagement.Flowers
             Controls.Add(txtUnitPrice);
             Controls.Add(txtFlowerBouquetName);
             Name = "frmFlowerDetail";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Flower";
+            Load += frmFlowerDetail_Load;
             ((System.ComponentModel.ISupportInitialize)imgFlower).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -241,5 +263,7 @@ namespace FlowerManagement.Flowers
         private Label Supplier;
         private Label label6;
         private Label lblTitle;
+        private Label label7;
+        private TextBox txtId;
     }
 }

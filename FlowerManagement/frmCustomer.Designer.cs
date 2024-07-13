@@ -60,6 +60,7 @@
             Controls.Add(btnMakeOrder);
             Controls.Add(btnOrderHistory);
             Name = "frmCustomer";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmCustomer";
             ResumeLayout(false);
         }

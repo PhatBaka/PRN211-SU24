@@ -44,7 +44,7 @@ namespace FlowerManagement
                 frmCustomer frmCustomer = new frmCustomer();
                 frmCustomer.Customer = customer;
                 frmCustomer.Show();
-                this.Hide();
+                //this.Hide();
             }
             else
             {

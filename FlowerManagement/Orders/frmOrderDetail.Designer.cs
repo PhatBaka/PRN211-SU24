@@ -49,6 +49,7 @@
             ClientSize = new Size(918, 529);
             Controls.Add(dgvOrderDetailList);
             Name = "frmOrderDetail";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "OrderDetail";
             Load += frmOrderDetail_Load;
             ((System.ComponentModel.ISupportInitialize)dgvOrderDetailList).EndInit();

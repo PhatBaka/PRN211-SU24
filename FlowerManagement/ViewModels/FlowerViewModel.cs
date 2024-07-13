@@ -21,8 +21,6 @@ namespace FlowerManagement.ViewModels
 
         public int UnitsInStock { get; set; }
 
-        public bool FlowerBouquetStatus { get; set; }
-
         public string? Morphology { get; set; }
 
         public byte[]? Image { get; set; }

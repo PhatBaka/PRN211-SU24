@@ -117,28 +117,35 @@ namespace FlowerManagement.Flowers
 
             // Proceed with saving the imageBytes to the database or further processing
 
-            var flower = new Flower
-            {
-                FlowerBouquetName = txtFlowerBouquetName.Text,
-                Description = txtDescription.Text,
-                UnitPrice = decimal.Parse(txtUnitPrice.Text),
-                UnitsInStock = Int32.Parse(txtUnitsInStock.Text),
-                Morphology = txtMorphology.Text,
-                SupplierID = (int)cbSupplier.SelectedValue,
-                CategoryID = (int)cbCategory.SelectedValue,
-                Image = imageBytes
-            };
-
             try
             {
                 if (InsertOrUpdate)
                 {
-                    flower.FlowerBouquetID = Int32.Parse(txtId.Text);
+                    var flower = _flowerRepository.GetById(Int32.Parse(txtId.Text));
+                    flower.FlowerBouquetName = txtFlowerBouquetName.Text;
+                    flower.Description = txtDescription.Text;
+                    flower.UnitPrice = decimal.Parse(txtUnitPrice.Text);
+                    flower.UnitsInStock = Int32.Parse(txtUnitsInStock.Text);
+                    flower.Morphology = txtMorphology.Text;
+                    flower.SupplierID = (int)cbSupplier.SelectedValue;
+                    flower.CategoryID = (int)cbCategory.SelectedValue;
+                    flower.Image = imageBytes;
                     _flowerRepository.Update(flower);
                     MessageBox.Show("Flower updated successfully.");
                 }
                 else
                 {
+                    var flower = new Flower
+                    {
+                        FlowerBouquetName = txtFlowerBouquetName.Text,
+                        Description = txtDescription.Text,
+                        UnitPrice = decimal.Parse(txtUnitPrice.Text),
+                        UnitsInStock = Int32.Parse(txtUnitsInStock.Text),
+                        Morphology = txtMorphology.Text,
+                        SupplierID = (int)cbSupplier.SelectedValue,
+                        CategoryID = (int)cbCategory.SelectedValue,
+                        Image = imageBytes
+                    };
                     _flowerRepository.Add(flower);
                     MessageBox.Show("Flower added successfully.");
                 }

@@ -34,7 +34,7 @@
             // 
             // btnOrderHistory
             // 
-            btnOrderHistory.Location = new Point(568, 287);
+            btnOrderHistory.Location = new Point(12, 12);
             btnOrderHistory.Name = "btnOrderHistory";
             btnOrderHistory.Size = new Size(117, 42);
             btnOrderHistory.TabIndex = 0;
@@ -44,7 +44,7 @@
             // 
             // btnMakeOrder
             // 
-            btnMakeOrder.Location = new Point(568, 122);
+            btnMakeOrder.Location = new Point(135, 12);
             btnMakeOrder.Name = "btnMakeOrder";
             btnMakeOrder.Size = new Size(117, 42);
             btnMakeOrder.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(284, 80);
             Controls.Add(btnMakeOrder);
             Controls.Add(btnOrderHistory);
             Name = "frmCustomer";

@@ -15,16 +15,16 @@ using Repositories.Interfaces;
 
 namespace FlowerManagement.Customers
 {
-    public partial class frmCustomerDetail : Form
+    public partial class frmAccountDetail : Form
     {
         private readonly ICustomerRepository _customerRepository = new CustomerRepository();
         private Customer Customer { get; set; }
 
         public bool InsertOrUpdate { get; set; }
         public Customer customer { get; set; }
-        public frmCustomer frmCustomer { get; set; }
+        public frmAccount frmCustomer { get; set; }
 
-        public frmCustomerDetail()
+        public frmAccountDetail()
         {
             InitializeComponent();
         }
@@ -43,12 +43,12 @@ namespace FlowerManagement.Customers
                     txtCity.Text = Customer.City;
                     txtCountry.Text = Customer.Country;
                     txtPassword.Text = Customer.Password;
-                    txtCustomerStatus.Text = Customer.CustomerStatus;
-                    txtPoint.Text = Customer.Point.ToString();
                 }
             }
             else
             {
+                lblCustomerId.Visible = false;
+                txtCustomerId.Visible = false;
                 lblTitle.Text = "CREATE CUSTOMER";
             }
         }
@@ -59,35 +59,56 @@ namespace FlowerManagement.Customers
                 string.IsNullOrEmpty(txtEmail.Text) ||
                 string.IsNullOrEmpty(txtCity.Text) ||
                 string.IsNullOrEmpty(txtCountry.Text) ||
-                string.IsNullOrEmpty(txtPassword.Text) ||
-                string.IsNullOrEmpty(txtCustomerStatus.Text) ||
-                !int.TryParse(txtPoint.Text, out int points))
+                string.IsNullOrEmpty(txtPassword.Text))
             {
                 MessageBox.Show("Please provide valid inputs.");
                 return;
             }
 
-            var customer = new Customer
-            {
-                CustomerName = txtCustomerName.Text,
-                Email = txtEmail.Text,
-                City = txtCity.Text,
-                Country = txtCountry.Text,
-                Password = txtPassword.Text,
-                CustomerStatus = txtCustomerStatus.Text,
-                Point = points
-            };
-
             try
             {
                 if (InsertOrUpdate)
                 {
-                    customer.CustomerId = Int32.Parse(txtCustomerId.Text);
+                    Customer customer = _customerRepository.GetById(Int32.Parse(txtCustomerId.Text));
+
+                    // If the email is different from the current email
+                    if (!txtEmail.Text.Equals(customer.Email))
+                    {
+                        // Check if the new email is "admin@gmail.com" or if it already exists in the repository
+                        if (txtEmail.Text.Equals("admin@gmail.com") ||
+                            _customerRepository.GetFirstOrDefault(x => x.Email.Equals(txtEmail.Text)) != null)
+                        {
+                            MessageBox.Show("Email already exists");
+                            return;
+                        }
+                    }
+
+                    customer.CustomerName = txtCustomerName.Text;
+                    customer.Country = txtCountry.Text;
+                    customer.City = txtCity.Text;
+                    customer.Email = txtEmail.Text;
+                    customer.Password = txtPassword.Text;
                     _customerRepository.Update(customer);
                     MessageBox.Show("Customer updated successfully.");
+
                 }
                 else
                 {
+                    if (txtEmail.Text.Equals("admin@gmail.com")
+                            || _customerRepository.GetFirstOrDefault(x => x.Email.Equals(txtEmail.Text)) != null)
+                    {
+                        MessageBox.Show("Email is existed");
+                        return;
+                    }
+
+                    var customer = new Customer
+                    {
+                        CustomerName = txtCustomerName.Text,
+                        Email = txtEmail.Text,
+                        City = txtCity.Text,
+                        Country = txtCountry.Text,
+                        Password = txtPassword.Text
+                    };
                     _customerRepository.Add(customer);
                     MessageBox.Show("Customer added successfully.");
                 }

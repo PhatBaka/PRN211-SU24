@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             btnFlower = new Button();
-            btnOrder = new Button();
             btnSupplier = new Button();
             btnCategory = new Button();
             dgvOrder = new DataGridView();
@@ -38,6 +37,9 @@
             btnSearch = new Button();
             btnReload = new Button();
             btnAccount = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            btnDetail = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvOrder).BeginInit();
             SuspendLayout();
             // 
@@ -50,16 +52,6 @@
             btnFlower.Text = "Flower";
             btnFlower.UseVisualStyleBackColor = true;
             btnFlower.Click += btnFlower_Click;
-            // 
-            // btnOrder
-            // 
-            btnOrder.Location = new Point(310, 12);
-            btnOrder.Name = "btnOrder";
-            btnOrder.Size = new Size(94, 29);
-            btnOrder.TabIndex = 1;
-            btnOrder.Text = "Order";
-            btnOrder.UseVisualStyleBackColor = true;
-            btnOrder.Click += btnOrder_Click;
             // 
             // btnSupplier
             // 
@@ -90,7 +82,6 @@
             dgvOrder.RowTemplate.Height = 29;
             dgvOrder.Size = new Size(774, 285);
             dgvOrder.TabIndex = 4;
-            dgvOrder.CellDoubleClick += dgvOrder_CellDoubleClick;
             // 
             // txtStartDate
             // 
@@ -137,11 +128,42 @@
             btnAccount.UseVisualStyleBackColor = true;
             btnAccount.Click += btnAccount_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(128, 62);
+            label1.Name = "label1";
+            label1.Size = new Size(76, 20);
+            label1.TabIndex = 10;
+            label1.Text = "Start Date";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(128, 97);
+            label2.Name = "label2";
+            label2.Size = new Size(70, 20);
+            label2.TabIndex = 11;
+            label2.Text = "End Date";
+            // 
+            // btnDetail
+            // 
+            btnDetail.Location = new Point(596, 94);
+            btnDetail.Name = "btnDetail";
+            btnDetail.Size = new Size(94, 29);
+            btnDetail.TabIndex = 12;
+            btnDetail.Text = "View detail";
+            btnDetail.UseVisualStyleBackColor = true;
+            btnDetail.Click += btnDetail_Click;
+            // 
             // frmAdmin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(806, 458);
+            Controls.Add(btnDetail);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(btnAccount);
             Controls.Add(btnReload);
             Controls.Add(btnSearch);
@@ -150,19 +172,19 @@
             Controls.Add(dgvOrder);
             Controls.Add(btnCategory);
             Controls.Add(btnSupplier);
-            Controls.Add(btnOrder);
             Controls.Add(btnFlower);
             Name = "frmAdmin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmAdmin";
+            Load += frmAdmin_Load;
             ((System.ComponentModel.ISupportInitialize)dgvOrder).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button btnFlower;
-        private Button btnOrder;
         private Button btnSupplier;
         private Button btnCategory;
         private DataGridView dgvOrder;
@@ -171,5 +193,8 @@
         private Button btnSearch;
         private Button btnReload;
         private Button btnAccount;
+        private Label label1;
+        private Label label2;
+        private Button btnDetail;
     }
 }

@@ -59,6 +59,7 @@
             btnOrder.TabIndex = 1;
             btnOrder.Text = "Order";
             btnOrder.UseVisualStyleBackColor = true;
+            btnOrder.Click += btnOrder_Click;
             // 
             // btnSupplier
             // 
@@ -132,6 +133,7 @@
             btnAccount.TabIndex = 9;
             btnAccount.Text = "Account";
             btnAccount.UseVisualStyleBackColor = true;
+            btnAccount.Click += btnAccount_Click;
             // 
             // frmAdmin
             // 

@@ -41,5 +41,16 @@ namespace FlowerManagement
             frmFlower frmFlower = new frmFlower();
             frmFlower.Show();
         }
+
+        private void btnAccount_Click(object sender, EventArgs e)
+        {
+            frmCustomer customer = new frmCustomer();
+            customer.Show();
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -25,8 +25,14 @@ namespace BusinessObjects
         public DateTime ShippedDate { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal Total { get; set; }
-        
+        public decimal TotalPrice { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal FinalPrice { get; set; }
+
+        [Column(TypeName = "float")]
+        public float Discount { get; set; }
+
         public string? OrderStatus { get; set; }
 
         public int CustomerId { get; set; }

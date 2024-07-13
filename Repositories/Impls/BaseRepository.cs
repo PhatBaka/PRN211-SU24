@@ -24,6 +24,6 @@ namespace Repositories.Impls
 
         public IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate) => BaseDAO<TEntity>.Instance.GetWhere(predicate);
 
-        public bool Update(TEntity entity) => BaseDAO<TEntity>.Instance.Update(entity);
+        public void Update(TEntity entity) => BaseDAO<TEntity>.Instance.Update(entity);
     }
 }

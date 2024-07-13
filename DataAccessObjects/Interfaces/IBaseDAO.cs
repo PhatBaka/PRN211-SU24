@@ -15,7 +15,7 @@ namespace DataAccessObjects.Interfaces
         TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> predicate);
         IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate);
         TEntity Add(TEntity entity);
-        bool Update(TEntity entity);
+        void Update(TEntity entity);
         bool Delete(TEntity entity);
     }
 }

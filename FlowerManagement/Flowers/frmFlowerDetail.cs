@@ -20,11 +20,19 @@ namespace FlowerManagement.Flowers
         private readonly IFlowerRepository _flowerRepository = new FlowerRepository();
         private readonly ICategoryRepository _categoryRepository = new CategoryRepository();
         private readonly ISupplierRepository _supplierRepository = new SupplierRepository();
+        private Flower Flower { get; set; }
+
+        public bool InsertOrUpdate { get; set; }
+        public Flower flower { get; set; }
+        public frmFlower frmFlower { get; set; }
 
         public frmFlowerDetail()
         {
             InitializeComponent();
+        }
 
+        private void frmFlowerDetail_Load(object sender, EventArgs e)
+        {
             cbCategory.DataSource = _categoryRepository.GetAll().ToList();
             cbCategory.DisplayMember = "CategoryName";
             cbCategory.ValueMember = "CategoryID";
@@ -32,6 +40,34 @@ namespace FlowerManagement.Flowers
             cbSupplier.DataSource = _supplierRepository.GetAll().ToList();
             cbSupplier.DisplayMember = "SupplierName";
             cbSupplier.ValueMember = "SupplierID";
+
+            if (InsertOrUpdate)
+            {
+                lblTitle.Text = "UPDATE FLOWER";
+                Flower = flower;
+                if (Flower != null)
+                {
+                    txtId.Text = Flower.FlowerBouquetID.ToString();
+                    txtDescription.Text = Flower.Description;
+                    txtFlowerBouquetName.Text = Flower.FlowerBouquetName;
+                    txtMorphology.Text = Flower.Morphology;
+                    txtUnitPrice.Text = Flower.UnitPrice.ToString();
+                    txtUnitsInStock.Text = Flower.UnitsInStock.ToString();
+                    cbCategory.SelectedValue = Flower.CategoryID;
+                    cbSupplier.SelectedValue = Flower.SupplierID;
+                    if (Flower.Image != null)
+                    {
+                        using (var ms = new MemoryStream(Flower.Image))
+                        {
+                            imgFlower.Image = Image.FromStream(ms);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                lblTitle.Text = "CREATE FLOWER";
+            }
         }
 
         private void picImage_Click(object sender, EventArgs e)
@@ -48,27 +84,70 @@ namespace FlowerManagement.Flowers
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Flower flower = new Flower();
-            flower.FlowerBouquetName = txtFlowerBouquetName.Text;
-            flower.Description = txtDescription.Text;
-            flower.UnitPrice = decimal.Parse(txtUnitPrice.Text);
-            flower.UnitsInStock = int.Parse(txtUnitsInStock.Text);
-            flower.Morphology = txtMorphology.Text;
-            flower.SupplierID = Int32.Parse(cbSupplier.SelectedValue.ToString());
-            flower.CategoryID = Int32.Parse(cbCategory.SelectedValue.ToString());
-
-            if (imgFlower.Image != null)
+            if (!decimal.TryParse(txtUnitPrice.Text, out decimal unitPrice) ||
+                    !int.TryParse(txtUnitsInStock.Text, out int unitsInStock) ||
+                    string.IsNullOrEmpty(txtFlowerBouquetName.Text) ||
+                    cbCategory.SelectedValue == null ||
+                    cbSupplier.SelectedValue == null)
             {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    imgFlower.Image.Save(ms, imgFlower.Image.RawFormat);
-                    flower.Image = ms.ToArray();
-                }
+                MessageBox.Show("Please provide valid inputs.");
+                return;
             }
 
-            if (_flowerRepository.Add(flower) != null)
+            if (imgFlower.Image == null)
             {
-                MessageBox.Show("Flower data saved successfully.");
+                MessageBox.Show("Please select an image.");
+                return;
+            }
+
+            // Check if the image is in PNG format
+            if (!imgFlower.Image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Png))
+            {
+                MessageBox.Show("The image must be in PNG format.");
+                return;
+            }
+
+            byte[] imageBytes;
+            using (var ms = new MemoryStream())
+            {
+                // Save the image as PNG format
+                imgFlower.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                imageBytes = ms.ToArray();
+            }
+
+            // Proceed with saving the imageBytes to the database or further processing
+
+            var flower = new Flower
+            {
+                FlowerBouquetName = txtFlowerBouquetName.Text,
+                Description = txtDescription.Text,
+                UnitPrice = decimal.Parse(txtUnitPrice.Text),
+                UnitsInStock = Int32.Parse(txtUnitsInStock.Text),
+                Morphology = txtMorphology.Text,
+                SupplierID = (int)cbSupplier.SelectedValue,
+                CategoryID = (int)cbCategory.SelectedValue,
+                Image = imageBytes
+            };
+
+            try
+            {
+                if (InsertOrUpdate)
+                {
+                    flower.FlowerBouquetID = Int32.Parse(txtId.Text);
+                    _flowerRepository.Update(flower);
+                    MessageBox.Show("Flower updated successfully.");
+                }
+                else
+                {
+                    _flowerRepository.Add(flower);
+                    MessageBox.Show("Flower added successfully.");
+                }
+                frmFlower.LoadEntities();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
             }
         }
     }

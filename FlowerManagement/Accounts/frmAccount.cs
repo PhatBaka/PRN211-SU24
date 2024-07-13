@@ -87,6 +87,13 @@ namespace FlowerManagement.Customers
             try
             {
                 var customer = _customerRepository.GetById(Int32.Parse(txtCustomerId.Text));
+
+                if (customer.Orders.Count > 0)
+                {
+                    MessageBox.Show("This customer already order. Can not delete");
+                    return;
+                }
+
                 if (_customerRepository.Delete(customer))
                 {
                     MessageBox.Show($"Delete {customer.CustomerName} successfully");

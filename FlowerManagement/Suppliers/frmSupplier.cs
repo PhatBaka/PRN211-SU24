@@ -12,6 +12,7 @@ namespace FlowerManagement.Suppliers
     public partial class frmSupplier : Form
     {
         private readonly ISupplierRepository _supplierRepository = new SupplierRepository();
+        private readonly IFlowerRepository _flowerRepository = new FlowerRepository();
 
         public frmSupplier()
         {
@@ -84,6 +85,13 @@ namespace FlowerManagement.Suppliers
             try
             {
                 var supplier = _supplierRepository.GetById(Int32.Parse(txtSupplierId.Text));
+                
+                if (supplier.Flowers.Count > 0)
+                {
+                    MessageBox.Show("This supplier is used, cannot delete");
+                    return;
+                }
+
                 if (_supplierRepository.Delete(supplier))
                 {
                     MessageBox.Show($"Delete {supplier.SupplierName} successfully");

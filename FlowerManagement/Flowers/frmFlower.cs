@@ -132,6 +132,13 @@ namespace FlowerManagement.Flowers
             try
             {
                 var flower = _flowerRepository.GetById(Int32.Parse(txtID.Text));
+
+                if (flower.OrderDetails.Count > 0)
+                {
+                    MessageBox.Show("Flower is in used. Can not delete");
+                    return;
+                }
+
                 if (_flowerRepository.Delete(flower))
                 {
                     MessageBox.Show($"Delete {flower.FlowerBouquetName} successfully");

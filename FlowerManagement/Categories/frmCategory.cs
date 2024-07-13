@@ -104,6 +104,13 @@ namespace FlowerManagement.Categories
             try
             {
                 var category = _categoryRepository.GetById(Int32.Parse(txtCategoryID.Text));
+
+                if (category.Flowers.Count > 0)
+                {
+                    MessageBox.Show("This category is in used. Can not delete");
+                    return;
+                }
+
                 if (_categoryRepository.Delete(category))
                 {
                     MessageBox.Show($"Delete {category.CategoryName} successfully");

@@ -17,7 +17,7 @@ namespace FlowerManagement
     public partial class frmCustomer : Form
     {
         public Customer Customer { get; set; } = null;
-
+        public frmLogin frmLogin = null;
         public frmCustomer()
         {
             InitializeComponent();

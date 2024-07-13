@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace FlowerManagement.Customers
 {
-    public partial class frmCustomer : Form
+    public partial class frmAccount : Form
     {
         private readonly ICustomerRepository _customerRepository = new CustomerRepository();
 
-        public frmCustomer()
+        public frmAccount()
         {
             InitializeComponent();
         }
@@ -29,9 +29,9 @@ namespace FlowerManagement.Customers
             source = new BindingSource();
             var customers = _customerRepository.GetAll().ToList();
 
-            if (!String.IsNullOrEmpty(txtSearch.Text))
+            if (!String.IsNullOrEmpty(txtSearchId.Text))
             {
-                customers = customers.Where(x => x.CustomerName.Contains(txtSearch.Text)).ToList();
+                customers = customers.Where(x => x.CustomerName.Contains(txtSearchId.Text)).ToList();
             }
 
             source.DataSource = customers;
@@ -74,7 +74,7 @@ namespace FlowerManagement.Customers
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            frmCustomerDetail frmCustomerDetail = new frmCustomerDetail()
+            frmAccountDetail frmCustomerDetail = new frmAccountDetail()
             {
                 frmCustomer = this,
                 InsertOrUpdate = false
@@ -106,7 +106,7 @@ namespace FlowerManagement.Customers
 
         private void dgvCustomer_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            frmCustomerDetail frmCustomerDetail = new frmCustomerDetail()
+            frmAccountDetail frmCustomerDetail = new frmAccountDetail()
             {
                 Text = "Update Customer",
                 InsertOrUpdate = true,
@@ -129,6 +129,50 @@ namespace FlowerManagement.Customers
                 CustomerStatus = txtCustomerStatus.Text,
                 Point = decimal.Parse(txtPoint.Text)
             };
+        }
+
+        private void btnSearchById_Click(object sender, EventArgs e)
+        {
+            int customerId;
+            if (int.TryParse(txtSearchId.Text, out customerId))
+            {
+                var customer = _customerRepository.GetById(customerId);
+                if (customer != null)
+                {
+                    source.DataSource = new List<Customer> { customer };
+                }
+                else
+                {
+                    MessageBox.Show("Customer not found");
+                    source.DataSource = new List<Customer>();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid Customer ID");
+            }
+
+            dgvCustomer.DataSource = null;
+            dgvCustomer.DataSource = source;
+        }
+
+        private void btnSearchByEmail_Click(object sender, EventArgs e)
+        {
+            var email = txtSearchEmail.Text;
+            var customers = _customerRepository.GetAll().Where(x => x.Email.Contains(email)).ToList();
+
+            if (customers.Count > 0)
+            {
+                source.DataSource = customers;
+            }
+            else
+            {
+                MessageBox.Show("Customer not found");
+                source.DataSource = new List<Customer>();
+            }
+
+            dgvCustomer.DataSource = null;
+            dgvCustomer.DataSource = source;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace FlowerManagement.Customers
 {
-    partial class frmCustomer
+    partial class frmAccount
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -27,7 +27,7 @@
             btnCreate = new Button();
             btnDelete = new Button();
             btnLoad = new Button();
-            txtSearch = new TextBox();
+            txtSearchId = new TextBox();
             lblCustomerId = new Label();
             lblCustomerName = new Label();
             lblEmail = new Label();
@@ -36,7 +36,9 @@
             lblPassword = new Label();
             lblCustomerStatus = new Label();
             lblPoint = new Label();
-            btnSearch = new Button();
+            btnSearchById = new Button();
+            txtSearchEmail = new TextBox();
+            btnSearchByEmail = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCustomer).BeginInit();
             SuspendLayout();
             // 
@@ -54,80 +56,86 @@
             // 
             // txtCustomerId
             // 
-            txtCustomerId.Location = new Point(100, 284);
+            txtCustomerId.Location = new Point(141, 284);
             txtCustomerId.Margin = new Padding(2, 3, 2, 3);
             txtCustomerId.Name = "txtCustomerId";
             txtCustomerId.ReadOnly = true;
             txtCustomerId.Size = new Size(161, 27);
             txtCustomerId.TabIndex = 1;
-            txtCustomerId.Visible = false;
             // 
             // txtCustomerName
             // 
-            txtCustomerName.Location = new Point(100, 317);
+            txtCustomerName.Location = new Point(141, 317);
             txtCustomerName.Margin = new Padding(2, 3, 2, 3);
             txtCustomerName.Name = "txtCustomerName";
             txtCustomerName.PlaceholderText = "Customer Name";
+            txtCustomerName.ReadOnly = true;
             txtCustomerName.Size = new Size(161, 27);
             txtCustomerName.TabIndex = 2;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(100, 350);
+            txtEmail.Location = new Point(141, 350);
             txtEmail.Margin = new Padding(2, 3, 2, 3);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderText = "Email";
+            txtEmail.ReadOnly = true;
             txtEmail.Size = new Size(161, 27);
             txtEmail.TabIndex = 3;
             // 
             // txtCity
             // 
-            txtCity.Location = new Point(100, 383);
+            txtCity.Location = new Point(141, 383);
             txtCity.Margin = new Padding(2, 3, 2, 3);
             txtCity.Name = "txtCity";
             txtCity.PlaceholderText = "City";
+            txtCity.ReadOnly = true;
             txtCity.Size = new Size(161, 27);
             txtCity.TabIndex = 4;
             // 
             // txtCountry
             // 
-            txtCountry.Location = new Point(100, 416);
+            txtCountry.Location = new Point(141, 416);
             txtCountry.Margin = new Padding(2, 3, 2, 3);
             txtCountry.Name = "txtCountry";
             txtCountry.PlaceholderText = "Country";
+            txtCountry.ReadOnly = true;
             txtCountry.Size = new Size(161, 27);
             txtCountry.TabIndex = 5;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(100, 449);
+            txtPassword.Location = new Point(141, 449);
             txtPassword.Margin = new Padding(2, 3, 2, 3);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "Password";
+            txtPassword.ReadOnly = true;
             txtPassword.Size = new Size(161, 27);
             txtPassword.TabIndex = 6;
             // 
             // txtCustomerStatus
             // 
-            txtCustomerStatus.Location = new Point(100, 482);
+            txtCustomerStatus.Location = new Point(141, 482);
             txtCustomerStatus.Margin = new Padding(2, 3, 2, 3);
             txtCustomerStatus.Name = "txtCustomerStatus";
             txtCustomerStatus.PlaceholderText = "Customer Status";
+            txtCustomerStatus.ReadOnly = true;
             txtCustomerStatus.Size = new Size(161, 27);
             txtCustomerStatus.TabIndex = 7;
             // 
             // txtPoint
             // 
-            txtPoint.Location = new Point(100, 515);
+            txtPoint.Location = new Point(141, 515);
             txtPoint.Margin = new Padding(2, 3, 2, 3);
             txtPoint.Name = "txtPoint";
             txtPoint.PlaceholderText = "Points";
+            txtPoint.ReadOnly = true;
             txtPoint.Size = new Size(161, 27);
             txtPoint.TabIndex = 8;
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(289, 287);
+            btnCreate.Location = new Point(330, 287);
             btnCreate.Margin = new Padding(2, 3, 2, 3);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(80, 29);
@@ -138,7 +146,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(289, 322);
+            btnDelete.Location = new Point(330, 322);
             btnDelete.Margin = new Padding(2, 3, 2, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(80, 29);
@@ -149,7 +157,7 @@
             // 
             // btnLoad
             // 
-            btnLoad.Location = new Point(289, 357);
+            btnLoad.Location = new Point(330, 357);
             btnLoad.Margin = new Padding(2, 3, 2, 3);
             btnLoad.Name = "btnLoad";
             btnLoad.Size = new Size(80, 29);
@@ -158,14 +166,14 @@
             btnLoad.UseVisualStyleBackColor = true;
             btnLoad.Click += btnLoad_Click;
             // 
-            // txtSearch
+            // txtSearchId
             // 
-            txtSearch.Location = new Point(403, 289);
-            txtSearch.Margin = new Padding(2, 3, 2, 3);
-            txtSearch.Name = "txtSearch";
-            txtSearch.PlaceholderText = "Search Customer";
-            txtSearch.Size = new Size(161, 27);
-            txtSearch.TabIndex = 12;
+            txtSearchId.Location = new Point(330, 412);
+            txtSearchId.Margin = new Padding(2, 3, 2, 3);
+            txtSearchId.Name = "txtSearchId";
+            txtSearchId.PlaceholderText = "ID";
+            txtSearchId.Size = new Size(161, 27);
+            txtSearchId.TabIndex = 12;
             // 
             // lblCustomerId
             // 
@@ -175,7 +183,6 @@
             lblCustomerId.Size = new Size(91, 20);
             lblCustomerId.TabIndex = 13;
             lblCustomerId.Text = "Customer ID";
-            lblCustomerId.Visible = false;
             // 
             // lblCustomerName
             // 
@@ -240,23 +247,46 @@
             lblPoint.TabIndex = 20;
             lblPoint.Text = "Points";
             // 
-            // btnSearch
+            // btnSearchById
             // 
-            btnSearch.Location = new Point(431, 322);
-            btnSearch.Margin = new Padding(2, 3, 2, 3);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(80, 29);
-            btnSearch.TabIndex = 21;
-            btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = true;
+            btnSearchById.Location = new Point(507, 410);
+            btnSearchById.Margin = new Padding(2, 3, 2, 3);
+            btnSearchById.Name = "btnSearchById";
+            btnSearchById.Size = new Size(80, 29);
+            btnSearchById.TabIndex = 21;
+            btnSearchById.Text = "Search";
+            btnSearchById.UseVisualStyleBackColor = true;
+            btnSearchById.Click += btnSearchById_Click;
             // 
-            // frmCustomer
+            // txtSearchEmail
+            // 
+            txtSearchEmail.Location = new Point(330, 452);
+            txtSearchEmail.Margin = new Padding(2, 3, 2, 3);
+            txtSearchEmail.Name = "txtSearchEmail";
+            txtSearchEmail.PlaceholderText = "Email";
+            txtSearchEmail.Size = new Size(161, 27);
+            txtSearchEmail.TabIndex = 22;
+            // 
+            // btnSearchByEmail
+            // 
+            btnSearchByEmail.Location = new Point(507, 452);
+            btnSearchByEmail.Margin = new Padding(2, 3, 2, 3);
+            btnSearchByEmail.Name = "btnSearchByEmail";
+            btnSearchByEmail.Size = new Size(80, 29);
+            btnSearchByEmail.TabIndex = 23;
+            btnSearchByEmail.Text = "Search";
+            btnSearchByEmail.UseVisualStyleBackColor = true;
+            btnSearchByEmail.Click += btnSearchByEmail_Click;
+            // 
+            // frmAccount
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(640, 600);
-            Controls.Add(btnSearch);
-            Controls.Add(txtSearch);
+            Controls.Add(btnSearchByEmail);
+            Controls.Add(txtSearchEmail);
+            Controls.Add(btnSearchById);
+            Controls.Add(txtSearchId);
             Controls.Add(btnLoad);
             Controls.Add(btnDelete);
             Controls.Add(btnCreate);
@@ -278,7 +308,8 @@
             Controls.Add(lblCustomerId);
             Controls.Add(dgvCustomer);
             Margin = new Padding(2, 3, 2, 3);
-            Name = "frmCustomer";
+            Name = "frmAccount";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Customer Management";
             Load += frmCustomer_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCustomer).EndInit();
@@ -298,7 +329,7 @@
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.TextBox txtSearchId;
 
         private System.Windows.Forms.Label lblCustomerId;
         private System.Windows.Forms.Label lblCustomerName;
@@ -308,6 +339,8 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblCustomerStatus;
         private System.Windows.Forms.Label lblPoint;
-        private Button btnSearch;
+        private Button btnSearchById;
+        private TextBox txtSearchEmail;
+        private Button btnSearchByEmail;
     }
 }

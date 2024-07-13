@@ -4,14 +4,10 @@ using Repositories.Impls;
 using Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace FlowerManagement.Flowers
 {
@@ -48,11 +44,6 @@ namespace FlowerManagement.Flowers
 
             var flowers = _flowerRepository.GetAll().ToList();
 
-            if (!String.IsNullOrEmpty(txtSearch.Text))
-            {
-                flowers = flowers.Where(x => x.FlowerBouquetName.Contains(txtSearch.Text)).ToList();
-            }
-
             foreach (Flower flower in flowers)
             {
                 var entity = new FlowerViewModel()
@@ -61,7 +52,6 @@ namespace FlowerManagement.Flowers
                     Description = flower.Description,
                     FlowerBouquetID = flower.FlowerBouquetID,
                     FlowerBouquetName = flower.FlowerBouquetName,
-                    FlowerBouquetStatus = flower.FlowerBouquetStatus,
                     Image = flower.Image,
                     Morphology = flower.Morphology,
                     SupplierName = flower.Supplier.SupplierName,
@@ -73,6 +63,24 @@ namespace FlowerManagement.Flowers
 
             source.DataSource = list;
 
+            BindControls();
+
+            dgvFlower.DataSource = null;
+            dgvFlower.DataSource = source;
+
+            if (list.Count == 0)
+            {
+                ClearText();
+                btnDelete.Enabled = false;
+            }
+            else
+            {
+                btnDelete.Enabled = true;
+            }
+        }
+
+        private void BindControls()
+        {
             txtID.DataBindings.Clear();
             txtFlowerBouquetName.DataBindings.Clear();
             txtUnitPrice.DataBindings.Clear();
@@ -95,19 +103,6 @@ namespace FlowerManagement.Flowers
             Binding imageBinding = new Binding("Image", source, "Image", true);
             imageBinding.Format += new ConvertEventHandler(ImageBinding_Format);
             imgFlower.DataBindings.Add(imageBinding);
-
-            dgvFlower.DataSource = null;
-            dgvFlower.DataSource = source;
-
-            if (list.Count == 0)
-            {
-                ClearText();
-                btnDelete.Enabled = false;
-            }
-            else
-            {
-                btnDelete.Enabled = true;
-            }
         }
 
         private void ClearText()
@@ -121,7 +116,6 @@ namespace FlowerManagement.Flowers
             cbSupplier.SelectedIndex = -1;
             cbCategory.SelectedIndex = -1;
         }
-
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
@@ -140,7 +134,7 @@ namespace FlowerManagement.Flowers
                 var flower = _flowerRepository.GetById(Int32.Parse(txtID.Text));
                 if (_flowerRepository.Delete(flower))
                 {
-                    MessageBox.Show($"Delete {flower.FlowerBouquetName} successfullt");
+                    MessageBox.Show($"Delete {flower.FlowerBouquetName} successfully");
                 }
                 LoadEntities();
             }
@@ -152,7 +146,7 @@ namespace FlowerManagement.Flowers
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-
+            LoadEntities();
         }
 
         private void ImageBinding_Format(object sender, ConvertEventArgs e)
@@ -198,6 +192,64 @@ namespace FlowerManagement.Flowers
                 UnitsInStock = Int32.Parse(txtUnitsInStock.Text)
             };
             return flower;
+        }
+
+        private void btnSearchName_Click(object sender, EventArgs e)
+        {
+            string searchValue = txtSearchName.Text.ToLower();
+            var filteredList = _flowerRepository.GetAll().Where(f => f.FlowerBouquetName.ToLower().Contains(searchValue)).ToList();
+            UpdateBindingSource(filteredList);
+        }
+
+        private void btnSearchById_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtSearchId.Text, out int searchId))
+            {
+                var filteredList = _flowerRepository.GetAll().Where(f => f.FlowerBouquetID == searchId).ToList();
+                UpdateBindingSource(filteredList);
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid ID", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void UpdateBindingSource(IEnumerable<Flower> flowers)
+        {
+            IList<FlowerViewModel> list = new List<FlowerViewModel>();
+
+            foreach (Flower flower in flowers)
+            {
+                var entity = new FlowerViewModel()
+                {
+                    CategoryName = flower.Category.CategoryName,
+                    Description = flower.Description,
+                    FlowerBouquetID = flower.FlowerBouquetID,
+                    FlowerBouquetName = flower.FlowerBouquetName,
+                    Image = flower.Image,
+                    Morphology = flower.Morphology,
+                    SupplierName = flower.Supplier.SupplierName,
+                    UnitPrice = flower.UnitPrice,
+                    UnitsInStock = flower.UnitsInStock
+                };
+                list.Add(entity);
+            }
+
+            source.DataSource = list;
+            BindControls();
+
+            dgvFlower.DataSource = null;
+            dgvFlower.DataSource = source;
+
+            if (list.Count == 0)
+            {
+                ClearText();
+                btnDelete.Enabled = false;
+            }
+            else
+            {
+                btnDelete.Enabled = true;
+            }
         }
     }
 }

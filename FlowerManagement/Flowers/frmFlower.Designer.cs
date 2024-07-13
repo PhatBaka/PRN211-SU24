@@ -48,12 +48,15 @@
             btnCreate = new Button();
             btnDelete = new Button();
             btnLoad = new Button();
-            txtSearch = new TextBox();
-            btnSearch = new Button();
+            txtSearchName = new TextBox();
+            btnSearchName = new Button();
             label8 = new Label();
             label9 = new Label();
             txtID = new TextBox();
             dgvFlower = new DataGridView();
+            label10 = new Label();
+            btnSearchById = new Button();
+            txtSearchId = new TextBox();
             ((System.ComponentModel.ISupportInitialize)imgFlower).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvFlower).BeginInit();
             SuspendLayout();
@@ -239,26 +242,27 @@
             btnLoad.UseVisualStyleBackColor = true;
             btnLoad.Click += btnLoad_Click;
             // 
-            // txtSearch
+            // txtSearchName
             // 
-            txtSearch.Location = new Point(313, 379);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(307, 27);
-            txtSearch.TabIndex = 45;
+            txtSearchName.Location = new Point(316, 358);
+            txtSearchName.Name = "txtSearchName";
+            txtSearchName.Size = new Size(307, 27);
+            txtSearchName.TabIndex = 45;
             // 
-            // btnSearch
+            // btnSearchName
             // 
-            btnSearch.Location = new Point(641, 379);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(94, 29);
-            btnSearch.TabIndex = 46;
-            btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = true;
+            btnSearchName.Location = new Point(644, 358);
+            btnSearchName.Name = "btnSearchName";
+            btnSearchName.Size = new Size(94, 29);
+            btnSearchName.TabIndex = 46;
+            btnSearchName.Text = "Search";
+            btnSearchName.UseVisualStyleBackColor = true;
+            btnSearchName.Click += btnSearchName_Click;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(257, 386);
+            label8.Location = new Point(260, 365);
             label8.Name = "label8";
             label8.Size = new Size(49, 20);
             label8.TabIndex = 47;
@@ -292,17 +296,46 @@
             dgvFlower.TabIndex = 50;
             dgvFlower.CellDoubleClick += dgvFlower_CellDoubleClick;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(285, 398);
+            label10.Name = "label10";
+            label10.Size = new Size(24, 20);
+            label10.TabIndex = 53;
+            label10.Text = "ID";
+            // 
+            // btnSearchById
+            // 
+            btnSearchById.Location = new Point(644, 391);
+            btnSearchById.Name = "btnSearchById";
+            btnSearchById.Size = new Size(94, 29);
+            btnSearchById.TabIndex = 52;
+            btnSearchById.Text = "Search";
+            btnSearchById.UseVisualStyleBackColor = true;
+            btnSearchById.Click += btnSearchById_Click;
+            // 
+            // txtSearchId
+            // 
+            txtSearchId.Location = new Point(316, 391);
+            txtSearchId.Name = "txtSearchId";
+            txtSearchId.Size = new Size(307, 27);
+            txtSearchId.TabIndex = 51;
+            // 
             // frmFlower
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(918, 667);
+            Controls.Add(label10);
+            Controls.Add(btnSearchById);
+            Controls.Add(txtSearchId);
             Controls.Add(dgvFlower);
             Controls.Add(txtID);
             Controls.Add(label9);
             Controls.Add(label8);
-            Controls.Add(btnSearch);
-            Controls.Add(txtSearch);
+            Controls.Add(btnSearchName);
+            Controls.Add(txtSearchName);
             Controls.Add(btnLoad);
             Controls.Add(btnDelete);
             Controls.Add(btnCreate);
@@ -354,11 +387,14 @@
         private Button btnCreate;
         private Button btnDelete;
         private Button btnLoad;
-        private TextBox txtSearch;
-        private Button btnSearch;
+        private TextBox txtSearchName;
+        private Button btnSearchName;
         private Label label8;
         private Label label9;
         private TextBox txtID;
         private DataGridView dgvFlower;
+        private Label label10;
+        private Button btnSearchById;
+        private TextBox txtSearchId;
     }
 }

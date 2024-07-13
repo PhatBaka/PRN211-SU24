@@ -66,8 +66,8 @@ namespace FlowerManagement
 
         private void btnCategory_Click(object sender, EventArgs e)
         {
-            frmCategories frmCategories = new frmCategories();
-            frmCategories.Show();
+            frmCategory frmCategory = new frmCategory();
+            frmCategory.Show();
         }
     }
 }

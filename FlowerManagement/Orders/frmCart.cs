@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessObjects;
 
@@ -16,13 +11,14 @@ namespace FlowerManagement.Orders
         public Dictionary<FlowerDetailDTO, int> selectedFlowers;
         private CartDisplay selectedCartDisplay = null;
         public frmOrder frmOrder = null;
-
         public Customer Customer { get; set; } = null;
 
         public frmCart()
         {
             InitializeComponent();
             selectedFlowers = new();
+            btnCheckOut.Enabled = false; // Initially disable the Check Out button
+            dgvCartList.DataError += dgvCartList_DataError; // Add this line to handle data errors
         }
 
         private List<CartDisplay> GetAllCartDisplays()
@@ -46,6 +42,7 @@ namespace FlowerManagement.Orders
             dgvCartList.DataSource = null;
             dgvCartList.DataSource = GetAllCartDisplays();
             dgvCartList.Columns["Quantity"].ReadOnly = false;
+            ValidateCart(); // Validate cart after filling data
         }
 
         private void frmCart_Load(object sender, EventArgs e)
@@ -53,25 +50,57 @@ namespace FlowerManagement.Orders
             FillDataGridView();
         }
 
-
         private void dgvCartList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == dgvCartList.Columns["Quantity"].Index && e.RowIndex >= 0)
             {
-                // Lấy giá trị mới từ DataGridView
-                int newQuantity = Convert.ToInt32(dgvCartList.Rows[e.RowIndex].Cells["Quantity"].Value);
+                var cellValue = dgvCartList.Rows[e.RowIndex].Cells["Quantity"].Value;
+                string quantityValue = cellValue != null ? cellValue.ToString().Trim() : string.Empty;
 
-                // Lấy FlowerBouquetID từ DataGridView
-                int flowerBouquetID = Convert.ToInt32(dgvCartList.Rows[e.RowIndex].Cells["FlowerBouquetID"].Value);
-
-                // Tìm khóa tương ứng trong Dictionary
-                var key = selectedFlowers.Keys.FirstOrDefault(k => k.FlowerBouquetID == flowerBouquetID);
-
-                if (key != null)
+                if (string.IsNullOrEmpty(quantityValue))
                 {
-                    // Cập nhật giá trị mới trong Dictionary
-                    selectedFlowers[key] = newQuantity;
+                    MessageBox.Show("Số lượng không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dgvCartList.Rows[e.RowIndex].Cells["Quantity"].Value = selectedFlowers.Values.ElementAt(e.RowIndex);
+                    return;
                 }
+
+                int newQuantity;
+                if (int.TryParse(quantityValue, out newQuantity) && newQuantity > 0)
+                {
+                    int flowerBouquetID = Convert.ToInt32(dgvCartList.Rows[e.RowIndex].Cells["FlowerBouquetID"].Value);
+                    var key = selectedFlowers.Keys.FirstOrDefault(k => k.FlowerBouquetID == flowerBouquetID);
+                    if (key != null && newQuantity <= key.UnitsInStock)
+                    {
+                        selectedFlowers[key] = newQuantity;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Số lượng vượt quá số lượng có sẵn!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dgvCartList.Rows[e.RowIndex].Cells["Quantity"].Value = selectedFlowers[key];
+                    }
+                }
+                else if (!int.TryParse(quantityValue, out newQuantity))
+                {
+                    MessageBox.Show("Số lượng phải là số nguyên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dgvCartList.Rows[e.RowIndex].Cells["Quantity"].Value = selectedFlowers.Values.ElementAt(e.RowIndex);
+                }
+                else
+                {
+                    MessageBox.Show("Số lượng phải là số nguyên dương!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dgvCartList.Rows[e.RowIndex].Cells["Quantity"].Value = selectedFlowers.Values.ElementAt(e.RowIndex);
+                }
+
+                ValidateCart(); // Validate cart after changing quantity
+            }
+        }
+
+        private void dgvCartList_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("Vui lòng nhập số nguyên.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            e.ThrowException = false;
+            if (e.ColumnIndex == dgvCartList.Columns["Quantity"].Index && e.RowIndex >= 0)
+            {
+                dgvCartList.Rows[e.RowIndex].Cells["Quantity"].Value = selectedFlowers.Values.ElementAt(e.RowIndex);
             }
         }
 
@@ -118,6 +147,12 @@ namespace FlowerManagement.Orders
             _frmCheckOutDetail.frmCart = this;
             _frmCheckOutDetail.Customer = Customer;
             _frmCheckOutDetail.ShowDialog();
+        }
+
+        private void ValidateCart()
+        {
+            // Enable Check Out button if there are items in the cart
+            btnCheckOut.Enabled = selectedFlowers.Count > 0;
         }
     }
 }

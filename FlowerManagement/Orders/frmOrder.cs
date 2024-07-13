@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessObjects;
 using Repositories.Impls;
@@ -31,12 +26,6 @@ namespace FlowerManagement.Orders
 
         private void Order_Load(object sender, EventArgs e)
         {
-            //cboCategory.DataSource = _categoryRepo.GetAll().ToList();
-            //cboCategory.DisplayMember = "CategoryName";
-            //cboCategory.ValueMember = "CategoryID";
-            //cboSupplier.DataSource = _suppilierRepo.GetAll().ToList();
-            //cboSupplier.DisplayMember = "SupplierName";
-            //cboSupplier.ValueMember = "SupplierID";
             FillDataGridView();
             _frmCart.Customer = Customer;
         }
@@ -47,20 +36,23 @@ namespace FlowerManagement.Orders
             var flowerList = _flowerRepo.GetAll();
             foreach (var f in flowerList)
             {
-                var flowerDetail = new FlowerDetailDTO()
+                if (f.UnitsInStock > 0)
                 {
-                    FlowerBouquetID = f.FlowerBouquetID,
-                    FlowerBouquetName = f.FlowerBouquetName,
-                    Description = f.Description,
-                    UnitPrice = f.UnitPrice,
-                    UnitsInStock = f.UnitsInStock,
-                    FlowerBouquetStatus = f.FlowerBouquetStatus,
-                    Morphology = f.Morphology,
-                    Image = f.Image,
-                    CategoryName = _categoryRepo.GetFirstOrDefault(c => c.CategoryID == f.CategoryID).CategoryName,
-                    SupplierName = _suppilierRepo.GetFirstOrDefault(s => s.SupplierID == f.SupplierID).SupplierName
-                };
-                flowerDetailList.Add(flowerDetail);
+                    var flowerDetail = new FlowerDetailDTO()
+                    {
+                        FlowerBouquetID = f.FlowerBouquetID,
+                        FlowerBouquetName = f.FlowerBouquetName,
+                        Description = f.Description,
+                        UnitPrice = f.UnitPrice,
+                        UnitsInStock = f.UnitsInStock,
+                        FlowerBouquetStatus = f.FlowerBouquetStatus,
+                        Morphology = f.Morphology,
+                        Image = f.Image,
+                        CategoryName = _categoryRepo.GetFirstOrDefault(c => c.CategoryID == f.CategoryID).CategoryName,
+                        SupplierName = _suppilierRepo.GetFirstOrDefault(s => s.SupplierID == f.SupplierID).SupplierName
+                    };
+                    flowerDetailList.Add(flowerDetail);
+                }
             }
             return flowerDetailList;
         }
@@ -87,16 +79,32 @@ namespace FlowerManagement.Orders
                 return;
             }
 
+            if (_selectedFlower == null || _selectedFlower.UnitsInStock <= 0)
+            {
+                MessageBox.Show("Sản phẩm đã hết hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (_frmCart.selectedFlowers.ContainsKey(_selectedFlower))
             {
-                _frmCart.selectedFlowers[_selectedFlower]++;
+                if (_frmCart.selectedFlowers[_selectedFlower] < _selectedFlower.UnitsInStock)
+                {
+                    _frmCart.selectedFlowers[_selectedFlower]++;
+                }
+                else
+                {
+                    MessageBox.Show("Số lượng vượt quá số lượng có sẵn!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             else
             {
                 _frmCart.selectedFlowers.Add(_selectedFlower, 1);
             }
 
+            // Decrease the UnitsInStock for the selected flower
+            _selectedFlower.UnitsInStock--;
+            FillDataGridView();
         }
 
         private void btnViewCart_Click(object sender, EventArgs e)
@@ -108,7 +116,6 @@ namespace FlowerManagement.Orders
             }
             _frmCart.frmOrder = this;
             _frmCart.ShowDialog();
-
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

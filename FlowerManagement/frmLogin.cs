@@ -4,12 +4,7 @@ using Repositories.Impls;
 using Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowerManagement
@@ -27,8 +22,8 @@ namespace FlowerManagement
         {
             var adminEmail = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AdminAccount:Email").Value;
             var adminPassword = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AdminAccount:Password").Value;
-        
-            if (txtEmail.Text.Equals(adminEmail) 
+
+            if (txtEmail.Text.Equals(adminEmail)
                     && txtPassword.Text.Equals(adminPassword))
             {
                 frmAdmin frmAdmin = new frmAdmin();
@@ -43,13 +38,20 @@ namespace FlowerManagement
             {
                 frmCustomer frmCustomer = new frmCustomer();
                 frmCustomer.Customer = customer;
+                frmCustomer.frmLogin = this;
+                frmCustomer.FormClosed += FrmCustomer_FormClosed; // Handle the FormClosed event
                 frmCustomer.Show();
-                //this.Hide();
+                this.Hide();
             }
             else
             {
-                MessageBox.Show("Login fail");
+                MessageBox.Show("Login failed");
             }
+        }
+
+        private void FrmCustomer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show(); // Show the login form again
         }
     }
 }

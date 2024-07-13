@@ -69,6 +69,7 @@
             btnSupplier.TabIndex = 2;
             btnSupplier.Text = "Supplier";
             btnSupplier.UseVisualStyleBackColor = true;
+            btnSupplier.Click += btnSupplier_Click;
             // 
             // btnCategory
             // 
@@ -78,6 +79,7 @@
             btnCategory.TabIndex = 3;
             btnCategory.Text = "Category";
             btnCategory.UseVisualStyleBackColor = true;
+            btnCategory.Click += btnCategory_Click;
             // 
             // dgvOrder
             // 

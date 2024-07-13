@@ -211,6 +211,7 @@ namespace FlowerManagement.Flowers
             txtId.Name = "txtId";
             txtId.Size = new Size(125, 27);
             txtId.TabIndex = 25;
+            txtId.ReadOnly = true;
             // 
             // frmFlowerDetail
             // 

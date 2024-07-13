@@ -18,6 +18,7 @@ namespace FlowerManagement.Categories
 
         public string? CategoryNote { get; set; }
     }
+
     public class CategoryMapper
     {
         public static CategoriesModelView MapToViewModel(Category category)

@@ -15,20 +15,33 @@ namespace FlowerManagement.Orders
 {
     public partial class frmCheckOutDetail : Form
     {
-        private readonly IBaseRepository<Order> _orderRepo;
-        private readonly IBaseRepository<OrderDetail> _orderDetailRepo;
-        private readonly IBaseRepository<Customer> _customerRepo;
-        private readonly IBaseRepository<Flower> _flowerRepo;
+        private readonly IBaseRepository<Order> _orderRepo = null;
+        private readonly IBaseRepository<OrderDetail> _orderDetailRepo = null;
+        private readonly IBaseRepository<Customer> _customerRepo = null;
+        private readonly IBaseRepository<Flower> _flowerRepo =null;
         public List<CheckOutDetail> checkOutDetailList;
         public frmCart frmCart = null;
         public Customer Customer { get; set; } = null;
         public frmCheckOutDetail()
         {
             InitializeComponent();
-            _orderRepo = new BaseRepository<Order>();
-            _orderDetailRepo = new BaseRepository<OrderDetail>();
-            _customerRepo = new BaseRepository<Customer>();
-            _flowerRepo = new BaseRepository<Flower>();
+            if (_orderRepo == null)
+            {
+                _orderRepo = new BaseRepository<Order>();
+            }
+            if (_orderDetailRepo == null)
+            {
+                _orderDetailRepo = new BaseRepository<OrderDetail>();
+            }
+            if(_customerRepo == null)
+            {
+                _customerRepo = new BaseRepository<Customer>();
+            }
+            if (_flowerRepo == null)
+            {
+                _flowerRepo = new BaseRepository<Flower>();
+            }
+            
             checkOutDetailList = new();
         }
 

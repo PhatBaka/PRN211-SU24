@@ -10,18 +10,28 @@ namespace FlowerManagement.Orders
 {
     public partial class frmOrder : Form
     {
-        private readonly IBaseRepository<Flower> _flowerRepo;
-        private readonly IBaseRepository<Category> _categoryRepo;
-        private readonly IBaseRepository<Supplier> _suppilierRepo;
+        private readonly IBaseRepository<Flower> _flowerRepo = null;
+        private readonly IBaseRepository<Category> _categoryRepo = null;
+        private readonly IBaseRepository<Supplier> _suppilierRepo = null;
         private FlowerDetailDTO _selectedFlower = null;
         private readonly frmCart _frmCart = new();
         public Customer Customer { get; set; } = null;
         public frmOrder()
         {
             InitializeComponent();
-            _flowerRepo = new BaseRepository<Flower>();
-            _categoryRepo = new BaseRepository<Category>();
-            _suppilierRepo = new BaseRepository<Supplier>();
+            if (_flowerRepo == null)
+            {
+                _flowerRepo = new BaseRepository<Flower>();
+            }
+            if (_categoryRepo == null)
+            {
+                _categoryRepo = new BaseRepository<Category>();
+            }
+            if (_suppilierRepo == null)
+            {
+                _suppilierRepo = new BaseRepository<Supplier>();
+            }
+            
         }
 
         private void Order_Load(object sender, EventArgs e)
@@ -103,8 +113,8 @@ namespace FlowerManagement.Orders
             }
 
             // Decrease the UnitsInStock for the selected flower
-            _selectedFlower.UnitsInStock--;
-            FillDataGridView();
+            //_selectedFlower.UnitsInStock--;
+            //FillDataGridView();
         }
 
         private void btnViewCart_Click(object sender, EventArgs e)

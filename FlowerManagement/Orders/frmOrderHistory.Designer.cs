@@ -74,6 +74,7 @@
             Controls.Add(btnReload);
             Controls.Add(dgvOrderList);
             Name = "frmOrderHistory";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "OrderHistory";
             Load += frmOrderHistory_Load;
             ((System.ComponentModel.ISupportInitialize)dgvOrderList).EndInit();

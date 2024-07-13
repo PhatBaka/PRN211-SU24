@@ -146,6 +146,7 @@
             Controls.Add(btnOK);
             Controls.Add(dgvCheckOut);
             Name = "frmCheckOutDetail";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "CheckOutDetail";
             Load += frmCheckOutDetail_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCheckOut).EndInit();

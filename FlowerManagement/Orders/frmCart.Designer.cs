@@ -87,6 +87,7 @@
             Controls.Add(btnDelete);
             Controls.Add(dgvCartList);
             Name = "frmCart";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cart";
             Load += frmCart_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCartList).EndInit();

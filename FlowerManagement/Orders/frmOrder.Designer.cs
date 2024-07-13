@@ -118,6 +118,7 @@
             Controls.Add(btnViewCart);
             Controls.Add(dgvFlowerList);
             Name = "frmOrder";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Order";
             Load += Order_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFlowerList).EndInit();

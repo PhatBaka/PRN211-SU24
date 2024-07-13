@@ -1,4 +1,5 @@
-﻿using FlowerManagement.Flowers;
+﻿using FlowerManagement.Customers;
+using FlowerManagement.Flowers;
 using Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -44,8 +45,8 @@ namespace FlowerManagement
 
         private void btnAccount_Click(object sender, EventArgs e)
         {
-            frmCustomer customer = new frmCustomer();
-            customer.Show();
+            frmAccount frmAccount = new frmAccount();
+            frmAccount.Show();
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
